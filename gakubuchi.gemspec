@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Gakubuchi::VERSION
   s.authors     = ["yasaichi"]
   s.email       = ["yasaichi@users.noreply.github.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Gakubuchi."
-  s.description = "TODO: Description of Gakubuchi."
+  s.homepage    = "https://github.com/yasaichi/gakubuchi"
+  s.summary     = "Static pages management with Asset Pipeline"
+  s.description = "Gakubuchi enables you to manage static pages with Asset Pipeline"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
