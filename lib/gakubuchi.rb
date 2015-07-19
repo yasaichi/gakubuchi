@@ -1,6 +1,9 @@
+require 'rails'
+
 require 'gakubuchi/configuration'
+require 'gakubuchi/template'
 require 'gakubuchi/version'
-require 'gakubuchi/engine' if defined?(Rails)
+require 'gakubuchi/engine'
 
 module Gakubuchi
   class << self
