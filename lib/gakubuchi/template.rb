@@ -1,6 +1,16 @@
 module Gakubuchi
   class Template
+    extend ::Forwardable
+
     attr_reader :pathname
+    def_delegators :@pathname, :hash
+
+    %w(== === eql?).each do |method_name|
+      define_method(method_name) do |other|
+        other.respond_to?(:pathname) &&
+        @pathname.__send__(method_name, other.pathname)
+      end
+    end
 
     def self.all
       Dir.glob(root.join('**/*.html*')).map { |path| new(path) }
@@ -16,12 +26,6 @@ module Gakubuchi
 
     def basename
       pathname.basename.to_s
-    end
-
-    def compiled_pathname
-      dirname = relative_pathname.dirname
-      pattern = "#{relative_pathname.basename(extname)}-*.{html,html.gz}"
-      Rails.public_path.join('assets', dirname, pattern)
     end
 
     def destination_pathname
@@ -42,6 +46,13 @@ module Gakubuchi
       end
 
       extnames.join
+    end
+
+    def precompiled_pathnames
+      dirname = relative_pathname.dirname
+      pattern = "#{relative_pathname.basename(extname)}-*.{html,html.gz}"
+
+      Pathname.glob(Rails.public_path.join('assets', dirname, pattern))
     end
 
     def relative_pathname

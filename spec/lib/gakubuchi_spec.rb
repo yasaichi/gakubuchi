@@ -9,13 +9,17 @@ RSpec.describe Gakubuchi do
   describe '.configure' do
     let(:template_root) { 'app/assets/foo' }
     let(:expected_attrs) do
-      { template_root: template_root }
+      {
+        remove_precompiled_templates: false,
+        template_root: template_root
+      }
     end
 
     subject { described_class.configuration }
 
     before do
       Gakubuchi.configure do |config|
+        config.remove_precompiled_templates = false
         config.template_root = template_root
       end
     end

@@ -2,11 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Gakubuchi::Template do
   let(:template_root) { described_class.root }
-  let(:template) { Gakubuchi::Template.new(path) }
+  let(:template) { described_class.new(path) }
 
   describe '.all' do
     subject { described_class.all }
-    it { is_expected.to be_all { |obj| obj.kind_of?(described_class) } }
+
+    let(:expectation) do
+      [
+        described_class.new(described_class.root.join('foo.html.erb')),
+        described_class.new(described_class.root.join('bar/baz.html.erb')),
+      ]
+    end
+
+    it { is_expected.to contain_exactly *expectation }
   end
 
   describe '.root' do
@@ -21,18 +29,11 @@ RSpec.describe Gakubuchi::Template do
     it { is_expected.to eq 'foo.html.erb' }
   end
 
-  describe '#compiled_pathname' do
-    subject { template.compiled_pathname }
-    let(:path) { template_root.join('foo/bar.html.erb').to_s }
-
-    it { is_expected.to eq Rails.public_path.join('assets/foo/bar-*.{html,html.gz}') }
-  end
-
   describe '#destination_pathname' do
     subject { template.destination_pathname }
-    let(:path) { template_root.join('foo/bar.html.erb').to_s }
+    let(:path) { template_root.join('bar/baz.html.erb').to_s }
 
-    it { is_expected.to eq Rails.public_path.join('foo/bar.html') }
+    it { is_expected.to eq Rails.public_path.join('bar/baz.html') }
   end
 
   describe '#extnanme' do
@@ -44,15 +45,37 @@ RSpec.describe Gakubuchi::Template do
 
   describe '#pathname' do
     subject { template.pathname }
-    let(:path) { template_root.join('foo', 'bar.html.erb').to_s }
+    let(:path) { template_root.join('foo/bar.html.erb').to_s }
 
     it { is_expected.to eq Pathname.new(path) }
   end
 
+  describe '#precompiled_pathnames' do
+    let(:path) { template_root.join('bar/baz.html.erb').to_s }
+    let(:described_method) { -> { template.precompiled_pathnames } }
+
+    describe 'return value' do
+      subject { described_method.call }
+      it { is_expected.to an_instance_of Array }
+    end
+
+    describe 'Pathname' do
+      subject { Pathname }
+      let(:expected_pathname) { Rails.public_path.join('assets/bar/baz-*.{html,html.gz}') }
+
+      before do
+        allow(subject).to receive(:glob)
+        described_method.call
+      end
+
+      it { is_expected.to have_received(:glob).with(expected_pathname) }
+    end
+  end
+
   describe '#relative_pathname' do
     subject { template.relative_pathname }
-    let(:path) { template_root.join('foo', 'bar.html.erb').to_s }
+    let(:path) { template_root.join('bar/baz.html.erb').to_s }
 
-    it { is_expected.to eq Pathname.new('foo/bar.html.erb') }
+    it { is_expected.to eq Pathname.new('bar/baz.html.erb') }
   end
 end

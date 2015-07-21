@@ -1,6 +1,7 @@
 require 'rails'
 
 require 'gakubuchi/configuration'
+require 'gakubuchi/task'
 require 'gakubuchi/template'
 require 'gakubuchi/version'
 require 'gakubuchi/engine'
