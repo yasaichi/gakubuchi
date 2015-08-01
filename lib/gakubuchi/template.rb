@@ -17,7 +17,7 @@ module Gakubuchi
     end
 
     def self.root
-      Rails.root.join(Gakubuchi::configuration.template_root)
+      Rails.root.join(Gakubuchi.configuration.template_root)
     end
 
     def initialize(path)

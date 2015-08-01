@@ -20,8 +20,8 @@ module Gakubuchi
         next if src.nil?
         dest = template.destination_pathname
 
-        Gakubuchi::FileUtils.copy_p(src, dest)
-        Gakubuchi::FileUtils.remove(precompiled_pathnames) if remove_precompiled_templates?
+        FileUtils.copy_p(src, dest)
+        FileUtils.remove(precompiled_pathnames) if remove_precompiled_templates?
       end
     end
 
