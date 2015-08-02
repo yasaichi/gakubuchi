@@ -78,5 +78,9 @@ RSpec.describe Gakubuchi::Task do
       let(:config_value) { nil }
       it { is_expected.to eq false }
     end
+
+    after do
+      Gakubuchi.configuration = Gakubuchi::Configuration.new
+    end
   end
 end

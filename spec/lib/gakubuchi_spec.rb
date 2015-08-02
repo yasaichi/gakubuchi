@@ -25,5 +25,9 @@ RSpec.describe Gakubuchi do
     end
 
     it { is_expected.to have_attributes(expected_attrs) }
+
+    after do
+      Gakubuchi.configuration = Gakubuchi::Configuration.new
+    end
   end
 end

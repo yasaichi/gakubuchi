@@ -12,7 +12,10 @@ RSpec.describe Gakubuchi::Configuration do
     subject { configuration.remove_precompiled_templates }
 
     context 'a value was set by the attr_writer' do
-      before { configuration.remove_precompiled_templates = false }
+      before do
+        configuration.remove_precompiled_templates = false
+      end
+
       it { is_expected.to eq false }
     end
 
@@ -25,7 +28,10 @@ RSpec.describe Gakubuchi::Configuration do
     subject { configuration.template_root }
 
     context 'a value was set by the attr_writer' do
-      before { configuration.template_root = 'app/assets/foo' }
+      before do
+        configuration.template_root = 'app/assets/foo'
+      end
+
       it { is_expected.to eq 'app/assets/foo' }
     end
 
