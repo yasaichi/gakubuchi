@@ -23,4 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "ammeter", ">= 1.0.0"
   s.add_development_dependency "codeclimate-test-reporter"
   s.add_development_dependency "appraisal", ">= 2.0.0"
+  s.add_development_dependency "haml-rails"
+  s.add_development_dependency "slim-rails"
 end

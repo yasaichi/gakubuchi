@@ -5,6 +5,25 @@ describe 'rake assets:precompile' do
     Rails.application.load_tasks
   end
 
+  describe 'precompiled templates' do
+    subject { Pathname.glob(Rails.public_path.join('**/*.html')) }
+
+    let(:expectation) do
+      [
+        Rails.public_path.join('foo.html'),
+        Rails.public_path.join('bar/baz.html'),
+        Rails.public_path.join('qux.html'),
+        Rails.public_path.join('quux.html')
+      ]
+    end
+
+    before do
+      Rake::Task['assets:precompile'].execute
+    end
+
+    it { is_expected.to contain_exactly *expectation }
+  end
+
   describe 'task' do
     let(:task) { double(:task, execute!: true) }
 

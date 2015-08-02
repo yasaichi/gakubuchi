@@ -11,6 +11,8 @@ RSpec.describe Gakubuchi::Template do
       [
         described_class.new(described_class.root.join('foo.html.erb')),
         described_class.new(described_class.root.join('bar/baz.html.erb')),
+        described_class.new(described_class.root.join('qux.html.haml')),
+        described_class.new(described_class.root.join('quux.html.slim'))
       ]
     end
 

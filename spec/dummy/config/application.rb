@@ -9,6 +9,8 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
+require "haml-rails"
+require "slim-rails"
 require "gakubuchi"
 
 module Dummy
