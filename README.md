@@ -19,20 +19,19 @@ Put this in your Gemfile:
 gem 'gakubuchi'
 ```
 
-In `app/assets/templates/static_page.html.erb`:
+In `app/assets/templates/static_page.html.slim`:
 
-```erb
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Static Page</title>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-</head>
-<body>
-Welcome to Gakubuchi!
-</body>
-</html>
+```slim
+doctype html
+html
+  head
+    title
+      | Sample Static Page
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+  body
+    p
+      | Hello, Gakubuchi!
 ```
 
 Compile the templeate with:
@@ -46,14 +45,14 @@ Then, you can get `public/static_page.html` as follows.
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Static Page</title>
-  <link rel="stylesheet" media="all" href="/assets/application-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css" />
-  <script src="/assets/application-8f06a73c35179188914ab50e057157639fce1401c1cdca640ac9cec33746fc5b.js"></script>
-</head>
-<body>
-Welcome to Gakubuchi!
-</body>
+  <head>
+    <title>Sample Static Page</title><link rel="stylesheet" media="all" href="/assets/application-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css" /><script src="/assets/application-8f06a73c35179188914ab50e057157639fce1401c1cdca640ac9cec33746fc5b.js"></script>
+  </head>
+  <body>
+    <p>
+      Hello, Gakubuchi!
+    </p>
+  </body>
 </html>
 ```
 
@@ -64,7 +63,8 @@ First, run the installation generator with:
 rails generate gakubuchi:install
 ```
 
-This will install the initializer into `config/initializers/gakubuchi.rb`.  
+This will install the initializer into `config/initializers/gakubuchi.rb`.
+
 In the file, you can configure the following values.
 
 ```
@@ -74,8 +74,8 @@ template_root                # 'app/assets/templates' by default
 
 ## Supports
 * Ruby: `2.0.0` or later
-* Rails: `4.0.0` or later (supports `3.x` as possible) 
-* Template engines: `ERB` (supports `Haml` and `Slim` soon) 
+* Rails: `4.0.0` or later (supports `3.x` as possible)
+* Template engines: `ERB`, `Haml` and `Slim`
 
 ## Contributing
 You should follow the steps below.
