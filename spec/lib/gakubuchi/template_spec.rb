@@ -24,6 +24,32 @@ RSpec.describe Gakubuchi::Template do
     it { is_expected.to eq Rails.root.join(Gakubuchi.configuration.template_root) }
   end
 
+  %w(== === eql?).each do |method_name|
+    describe "##{method_name}" do
+      subject { template.__send__(method_name, other) }
+      let(:path) { template_root.join('foo.html.erb').to_s }
+
+      context "other isn't a instance of Gakubuchi::Template" do
+        let(:other) { path }
+        it { is_expected.to eq false }
+      end
+
+      context 'other is a instance of Gakubuchi::Template' do
+        let(:other) { described_class.new(other_path) }
+
+        context '#pathname is equal to other.pathname' do
+          let(:other_path) { path }
+          it { is_expected.to eq true }
+        end
+
+        context "#pathname isn't equal to other.pathname" do
+          let(:other_path) { template_root.join('foo/bar.html.erb').to_s }
+          it { is_expected.to eq false }
+        end
+      end
+    end
+  end
+
   describe '#basenanme' do
     subject { template.basename }
     let(:path) { template_root.join('foo.html.erb').to_s }
