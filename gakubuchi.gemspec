@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["yasaichi@users.noreply.github.com"]
   s.homepage    = "https://github.com/yasaichi/gakubuchi"
   s.summary     = "Static pages management with Asset Pipeline"
-  s.description = "Gakubuchi enables you to manage static pages with Asset Pipeline"
+  s.description = "Gakubuchi provides a simple way to manage static pages with Asset Pipeline."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
