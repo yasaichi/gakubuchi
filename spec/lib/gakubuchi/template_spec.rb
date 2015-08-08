@@ -29,7 +29,7 @@ RSpec.describe Gakubuchi::Template do
       subject { template.__send__(method_name, other) }
       let(:path) { template_root.join('foo.html.erb').to_s }
 
-      context "other isn't a instance of Gakubuchi::Template" do
+      context "other is not a instance of Gakubuchi::Template" do
         let(:other) { path }
         it { is_expected.to eq false }
       end
@@ -42,7 +42,7 @@ RSpec.describe Gakubuchi::Template do
           it { is_expected.to eq true }
         end
 
-        context "#pathname isn't equal to other.pathname" do
+        context "#pathname is not equal to other.pathname" do
           let(:other_path) { template_root.join('foo/bar.html.erb').to_s }
           it { is_expected.to eq false }
         end
@@ -84,7 +84,7 @@ RSpec.describe Gakubuchi::Template do
 
     describe 'return value' do
       subject { described_method.call }
-      it { is_expected.to an_instance_of Array }
+      it { is_expected.to be_an_instance_of Array }
     end
 
     describe 'Pathname' do

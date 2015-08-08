@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Gakubuchi do
   describe '.configuration' do
     subject { described_class.configuration }
-    it { is_expected.to be_a_instance_of(Gakubuchi::Configuration) }
+    it { is_expected.to be_an_instance_of Gakubuchi::Configuration }
   end
 
   describe '.configure' do
