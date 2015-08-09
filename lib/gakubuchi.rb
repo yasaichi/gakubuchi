@@ -5,7 +5,7 @@ require 'gakubuchi/task'
 require 'gakubuchi/template'
 require 'gakubuchi/template_engine'
 require 'gakubuchi/version'
-require 'gakubuchi/engine'
+require 'gakubuchi/railtie'
 
 module Gakubuchi
   class << self

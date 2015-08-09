@@ -1,14 +1,12 @@
 module Gakubuchi
-  class Engine < ::Rails::Engine
-    isolate_namespace Gakubuchi
-
-    config.generators do |g|
-      g.test_framework :rspec
-    end
-
+  class Railtie < ::Rails::Railtie
     initializer 'gakubuchi.assets.precompile' do |app|
       TemplateEngine.new('Slim::Template').register!('.slim')
       TemplateEngine.new('Tilt::HamlTemplate').register!('.haml')
+    end
+
+    rake_tasks do
+      ::Dir.glob(::File.expand_path('../../tasks/*.rake', __FILE__)).each { |path| load path }
     end
   end
 end
