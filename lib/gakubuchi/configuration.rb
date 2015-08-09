@@ -1,7 +1,10 @@
 module Gakubuchi
   class Configuration
+    extend ::Forwardable
     include ::ActiveSupport::Configurable
-    alias_method :to_h, :config
+
+    private :config
+    def_delegators :config, :to_h
 
     config_accessor :remove_precompiled_templates do
       true

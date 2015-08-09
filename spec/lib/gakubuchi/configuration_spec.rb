@@ -5,7 +5,7 @@ RSpec.describe Gakubuchi::Configuration do
 
   describe '#to_h' do
     subject { configuration.to_h }
-    it { is_expected.to be_a_kind_of Hash }
+    it { is_expected.to be_an_instance_of Hash }
   end
 
   describe '#remove_precompiled_templates' do
