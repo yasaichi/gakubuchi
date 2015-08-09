@@ -13,15 +13,15 @@ module Gakubuchi
     end
 
     def self.all
-      Dir.glob(root.join('**/*.html*')).map { |path| new(path) }
+      ::Dir.glob(root.join('**/*.html*')).map { |path| new(path) }
     end
 
     def self.root
-      Rails.root.join(Gakubuchi.configuration.template_root)
+      ::Rails.root.join(Gakubuchi.configuration.template_root)
     end
 
     def initialize(path)
-      @pathname = Pathname.new(path)
+      @pathname = ::Pathname.new(path)
     end
 
     def basename
@@ -30,7 +30,7 @@ module Gakubuchi
 
     def destination_pathname
       dirname = relative_pathname.dirname
-      Rails.public_path.join(dirname, "#{relative_pathname.basename(extname)}.html")
+      ::Rails.public_path.join(dirname, "#{relative_pathname.basename(extname)}.html")
     end
 
     def extname
@@ -52,7 +52,7 @@ module Gakubuchi
       dirname = relative_pathname.dirname
       pattern = "#{relative_pathname.basename(extname)}-*.{html,html.gz}"
 
-      Pathname.glob(Rails.public_path.join('assets', dirname, pattern))
+      ::Pathname.glob(::Rails.public_path.join('assets', dirname, pattern))
     end
 
     def relative_pathname

@@ -1,6 +1,6 @@
 module Gakubuchi
   class Configuration
-    include ActiveSupport::Configurable
+    include ::ActiveSupport::Configurable
     alias_method :to_h, :config
 
     config_accessor :remove_precompiled_templates do

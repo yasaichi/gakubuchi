@@ -6,7 +6,7 @@ module Gakubuchi
 
     class << self
       def copy_p(src, dest)
-        mkdir_p(File.dirname(dest))
+        mkdir_p(::File.dirname(dest))
         copy(src, dest)
         logging("Copied #{src} to #{dest}")
       end
@@ -19,7 +19,7 @@ module Gakubuchi
       private
 
       def logging(message)
-        Logger.new(STDOUT).info(message)
+        ::Logger.new(STDOUT).info(message)
       end
     end
   end

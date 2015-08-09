@@ -5,8 +5,8 @@ module Gakubuchi
     attr_reader :klass
     alias_method :engine, :klass
 
-    def_delegators 'Rails.application', :assets
-    def_delegators 'Sprockets::Utils', :normalize_extension
+    def_delegators '::Rails.application', :assets
+    def_delegators '::Sprockets::Utils', :normalize_extension
     private :assets, :normalize_extension
 
     def initialize(engine)
