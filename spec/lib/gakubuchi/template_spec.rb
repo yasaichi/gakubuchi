@@ -78,25 +78,23 @@ RSpec.describe Gakubuchi::Template do
     it { is_expected.to eq Pathname.new(path) }
   end
 
-  describe '#precompiled_pathnames' do
-    let(:path) { template_root.join('bar/baz.html.erb').to_s }
-    let(:described_method) { -> { template.precompiled_pathnames } }
+  describe '#precompiled_pathname' do
+    subject { template.precompiled_pathname }
 
-    describe 'return value' do
-      subject { described_method.call }
-      it { is_expected.to be_an_instance_of Array }
+    context "template does not exist in specified path" do
+      let(:path) { template_root.join('not_exist.html.erb').to_s }
+      it { is_expected.to eq nil }
     end
 
-    describe 'Pathname' do
-      subject { Pathname }
-      let(:expected_pathname) { Rails.public_path.join('assets/bar/baz-*.{html,html.gz}') }
+    context "template exists in the specified path" do
+      let(:path) { template_root.join('bar/baz.html.erb').to_s }
 
-      before do
-        allow(subject).to receive(:glob)
-        described_method.call
+      it 'should return a pathname which refers to the precompiled template' do
+        expected_path = Rails.public_path.join('assets', 'bar/baz-[a-z0-9]+.html').to_s
+
+        expect(subject).to be_an_instance_of Pathname
+        expect(subject.to_s).to match Regexp.new(expected_path)
       end
-
-      it { is_expected.to have_received(:glob).with(expected_pathname) }
     end
   end
 

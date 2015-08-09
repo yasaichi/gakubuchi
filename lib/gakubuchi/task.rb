@@ -10,18 +10,13 @@ module Gakubuchi
 
     def execute!
       templates.each do |template|
-        precompiled_pathnames = template.precompiled_pathnames
-
-        src = precompiled_pathnames
-          .select  { |pathname| pathname.extname == '.html' }
-          .sort_by { |pathname| pathname.mtime }
-          .last
-
+        src = template.precompiled_pathname
         next if src.nil?
-        dest = template.destination_pathname
 
+        dest = template.destination_pathname
         FileUtils.copy_p(src, dest)
-        FileUtils.remove(precompiled_pathnames) if remove_precompiled_templates?
+
+        FileUtils.remove(src) if remove_precompiled_templates?
       end
     end
 

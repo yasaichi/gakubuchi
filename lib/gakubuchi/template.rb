@@ -48,11 +48,9 @@ module Gakubuchi
       extnames.join
     end
 
-    def precompiled_pathnames
-      dirname = relative_pathname.dirname
-      pattern = "#{relative_pathname.basename(extname)}-*.{html,html.gz}"
-
-      ::Pathname.glob(::Rails.public_path.join('assets', dirname, pattern))
+    def precompiled_pathname
+      asset = ::Rails.application.assets.find_asset(relative_pathname)
+      ::Rails.public_path.join('assets', asset.digest_path) if asset
     end
 
     def relative_pathname

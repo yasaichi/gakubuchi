@@ -5,22 +5,12 @@ RSpec.describe Gakubuchi::Task do
 
   describe '#execute!' do
     let(:templates) { [template] }
-    let(:src) { double(:pathname, extname: '.html', mtime: 3) }
-
-    let(:precompiled_pathnames) do
-      [
-        src,
-        double(:pathname, extname: '.html.gz', mtime: 1),
-        double(:pathname, extname: '.html', mtime: 2),
-        double(:pathname, extname: '.html.gz', mtime: 4),
-      ]
-    end
 
     let(:template) do
       path = Gakubuchi::Template.root.join('foo.html.erb').to_s
 
       Gakubuchi::Template.new(path).tap do |template|
-        allow(template).to receive(:precompiled_pathnames).and_return(precompiled_pathnames)
+        allow(template).to receive(:precompiled_pathname).and_return(precompiled_pathname)
       end
     end
 
@@ -32,30 +22,50 @@ RSpec.describe Gakubuchi::Task do
         allow(subject).to receive(:remove)
       end
 
-      describe '.copy_p' do
-        let(:dest) { template.destination_pathname }
+      context 'precompiled pathname is nil' do
+        let(:precompiled_pathname) { nil }
 
         before do
           task.execute!
         end
 
-        it { is_expected.to have_received(:copy_p).with(src, dest) }
+        describe '.copy_p' do
+          it { is_expected.not_to have_received(:copy_p) }
+        end
+
+        describe '.remove' do
+          it { is_expected.not_to have_received(:remove) }
+        end
       end
 
-      describe '.remove' do
-        before do
-          allow(task).to receive(:remove_precompiled_templates?).and_return(return_value)
-          task.execute!
+      context 'precompiled pathname is not nil' do
+        let(:precompiled_pathname) { double(:pathname) }
+
+        describe '.copy_p' do
+          let(:dest) { template.destination_pathname }
+
+          before do
+            task.execute!
+          end
+
+          it { is_expected.to have_received(:copy_p).with(precompiled_pathname, dest) }
         end
 
-        context '#remove_precompiled_templates? returns true' do
-          let(:return_value) { true }
-          it { is_expected.to have_received(:remove).with(precompiled_pathnames) }
-        end
+        describe '.remove' do
+          before do
+            allow(task).to receive(:remove_precompiled_templates?).and_return(return_value)
+            task.execute!
+          end
 
-        context '#remove_precompiled_templates? returns false' do
-          let(:return_value) { false }
-          it { is_expected.not_to have_received(:remove) }
+          context '#remove_precompiled_templates? returns true' do
+            let(:return_value) { true }
+            it { is_expected.to have_received(:remove).with(precompiled_pathname) }
+          end
+
+          context '#remove_precompiled_templates? returns false' do
+            let(:return_value) { false }
+            it { is_expected.not_to have_received(:remove) }
+          end
         end
       end
     end
