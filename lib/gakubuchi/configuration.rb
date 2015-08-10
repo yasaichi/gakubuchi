@@ -10,8 +10,8 @@ module Gakubuchi
       true
     end
 
-    config_accessor :template_root do
-      'app/assets/templates'
+    config_accessor :template_directory do
+      'templates'
     end
   end
 end

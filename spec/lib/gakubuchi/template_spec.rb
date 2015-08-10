@@ -21,7 +21,7 @@ RSpec.describe Gakubuchi::Template do
 
   describe '.root' do
     subject { described_class.root }
-    it { is_expected.to eq Rails.root.join(Gakubuchi.configuration.template_root) }
+    it { is_expected.to eq Rails.root.join('app/assets', Gakubuchi.configuration.template_directory) }
   end
 
   %w(== === eql?).each do |method_name|

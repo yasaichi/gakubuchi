@@ -24,19 +24,19 @@ RSpec.describe Gakubuchi::Configuration do
     end
   end
 
-  describe '#template_root' do
-    subject { configuration.template_root }
+  describe '#template_directory' do
+    subject { configuration.template_directory }
 
     context 'a value was set by the attr_writer' do
       before do
-        configuration.template_root = 'app/assets/foo'
+        configuration.template_directory = 'foo'
       end
 
-      it { is_expected.to eq 'app/assets/foo' }
+      it { is_expected.to eq 'foo' }
     end
 
     context 'a value was not set by the attr_writer' do
-      it { is_expected.to eq 'app/assets/templates' }
+      it { is_expected.to eq 'templates' }
     end
   end
 end

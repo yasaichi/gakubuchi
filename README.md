@@ -7,12 +7,29 @@
 
 Gakubuchi provides a simple way to manage static pages (e.g. error pages) with Asset Pipeline.
 
-## Quickstart
+## Installation
 Put this in your Gemfile:
 
 ```ruby
 gem 'gakubuchi'
 ```
+
+Run the installation generator with:
+
+```shell
+rails generate gakubuchi:install
+```
+
+Or specify the name of directory for static pages:
+
+```shell
+rails generate gakubuchi:install -d html
+```
+
+This will install the initializer into `config/initializers/gakubuchi.rb` and create the directory in `app/assets`.  
+If you don't specify the `-d` option, `templates` will be used as default.
+
+## Usage
 
 In `app/assets/templates/404.html.slim`:
 
@@ -58,19 +75,11 @@ gem 'slim-rails'
 ```
 
 ## Configuration
-First, run the installation generator with:
-
-```shell
-rails generate gakubuchi:install
-```
-
-This will install the initializer into `config/initializers/gakubuchi.rb`.
-
-In the file, you can configure the following values.
+In `config/initializers/gakubuchi.rb`, you can configure the following values.
 
 ```
 remove_precompiled_templates # true by default
-template_root                # 'app/assets/templates' by default
+template_directory           # 'templates' by default
 ```
 
 ## Supported versions
