@@ -24,10 +24,6 @@ module Gakubuchi
       @pathname = ::Pathname.new(path)
     end
 
-    def basename
-      pathname.basename.to_s
-    end
-
     def destination_pathname
       dirname = relative_pathname.dirname
       ::Rails.public_path.join(dirname, "#{relative_pathname.basename(extname)}.html")

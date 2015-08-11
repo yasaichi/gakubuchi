@@ -50,13 +50,6 @@ RSpec.describe Gakubuchi::Template do
     end
   end
 
-  describe '#basenanme' do
-    subject { template.basename }
-    let(:path) { template_root.join('foo.html.erb').to_s }
-
-    it { is_expected.to eq 'foo.html.erb' }
-  end
-
   describe '#destination_pathname' do
     subject { template.destination_pathname }
     let(:path) { template_root.join('bar/baz.html.erb').to_s }
