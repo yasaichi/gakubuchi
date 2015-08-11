@@ -26,7 +26,7 @@ Or specify the name of directory for static pages:
 rails generate gakubuchi:install -d html
 ```
 
-This will install the initializer into `config/initializers/gakubuchi.rb` and create the directory in `app/assets`.  
+They will install the initializer into `config/initializers/gakubuchi.rb` and create the directory in `app/assets`.  
 If you don't specify the `-d` option, `templates` will be used as default.
 
 ## Usage
@@ -60,7 +60,7 @@ Compile the templeate with:
 rake assets:precompile
 ```
 
-Then, you can get `public/404.html`.
+This will generate `public/404.html`.
 
 ## Template engines
 Gakubuchi supports some template engines: `ERB`, `Haml` and `Slim`.  
@@ -72,6 +72,14 @@ gem 'haml-rails'
 
 # Use Slim
 gem 'slim-rails'
+```
+
+## Using assets
+Gakubuchi enables you to use assets (e.g. `CSS` or `JavaScript` files) in static pages.  
+Note that you may need to add them to the precompile array in `config/initializers/assets.rb`:
+
+```ruby
+Rails.application.config.assets.precompile += %w(error.css error.js)
 ```
 
 ## Configuration
