@@ -8,5 +8,3 @@ gemfile:
   - gemfiles/rails40x.gemfile
   - gemfiles/rails41x.gemfile
   - gemfiles/rails42x.gemfile
-before_script:
-  - RAILS_ENV=test bundle exec rake db:setup

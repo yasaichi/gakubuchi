@@ -31,12 +31,7 @@ require 'rspec/rails'
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-rails_version = Gem::Version.create(Rails.version)
-if rails_version < Gem::Version.create('4.1.0')
-  ActiveRecord::Migration.check_pending!
-elsif rails_version >= Gem::Version.create('4.1.0')
-  ActiveRecord::Migration.maintain_test_schema!
-end
+# ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
