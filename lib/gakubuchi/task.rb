@@ -1,5 +1,3 @@
-require 'gakubuchi/fileutils'
-
 module Gakubuchi
   class Task
     attr_reader :templates

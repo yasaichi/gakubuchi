@@ -1,5 +1,3 @@
-require 'fileutils'
-
 module Gakubuchi
   module FileUtils
     extend ::FileUtils

@@ -1,11 +1,19 @@
-require 'rails'
+require 'fileutils'
+require 'forwardable'
+require 'logger'
+require 'active_support/configurable'
 
 require 'gakubuchi/configuration'
+require 'gakubuchi/fileutils'
 require 'gakubuchi/task'
-require 'gakubuchi/template'
-require 'gakubuchi/template_engine'
 require 'gakubuchi/version'
-require 'gakubuchi/railtie'
+
+if defined?(::Rails::Railtie) && defined?(::Sprockets::Railtie)
+  require 'pathname'
+  require 'gakubuchi/template'
+  require 'gakubuchi/template_engine'
+  require 'gakubuchi/railtie'
+end
 
 module Gakubuchi
   class << self
