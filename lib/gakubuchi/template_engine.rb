@@ -10,19 +10,20 @@ module Gakubuchi
     private :assets, :normalize_extension
 
     def initialize(engine)
-      const = engine.to_s.constantize
-      raise TypeError, "#{const} is not a class" unless const.is_a?(Class)
-
-      @klass = const
+      @klass = engine.to_s.constantize rescue nil
     end
 
     def register!(extname)
-      return false if registered?(extname)
-      !!assets.register_engine(extname, engine)
+      if engine.instance_of?(Class) && !registered?(extname)
+        !!assets.register_engine(extname, engine)
+      else
+        false
+      end
     end
 
     def registered?(extname)
-      assets.engines[normalize_extension(extname)] == engine
+      ext = normalize_extension(extname)
+      assets.engines.has_key?(ext) && assets.engines[ext] == engine
     end
   end
 end
