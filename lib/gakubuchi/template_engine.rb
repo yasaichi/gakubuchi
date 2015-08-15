@@ -14,7 +14,7 @@ module Gakubuchi
     end
 
     def register!(extname)
-      if engine.instance_of?(Class) && !registered?(extname)
+      if engine.instance_of?(::Class) && !registered?(extname)
         !!assets.register_engine(extname, engine)
       else
         false
