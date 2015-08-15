@@ -11,7 +11,7 @@ module Gakubuchi
 
       def remove(list)
         super(list)
-        logging("Removed #{list.join(' ')}")
+        logging("Removed #{Array(list).join(' ')}")
       end
 
       private
