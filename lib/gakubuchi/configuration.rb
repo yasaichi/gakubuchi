@@ -6,8 +6,8 @@ module Gakubuchi
     private :config
     def_delegators :config, :to_h
 
-    config_accessor :remove_precompiled_templates do
-      true
+    config_accessor :leave_digest_named_templates do
+      false
     end
 
     config_accessor :template_directory do

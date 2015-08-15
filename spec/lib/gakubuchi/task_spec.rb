@@ -53,30 +53,30 @@ RSpec.describe Gakubuchi::Task do
 
         describe '.remove' do
           before do
-            allow(task).to receive(:remove_precompiled_templates?).and_return(return_value)
+            allow(task).to receive(:leave_digest_named_templates?).and_return(return_value)
             task.execute!
           end
 
-          context '#remove_precompiled_templates? returns true' do
+          context '#leave_digest_named_templates? returns true' do
             let(:return_value) { true }
-            it { is_expected.to have_received(:remove).with(precompiled_pathname) }
+            it { is_expected.not_to have_received(:remove) }
           end
 
-          context '#remove_precompiled_templates? returns false' do
+          context '#leave_digest_named_templates? returns false' do
             let(:return_value) { false }
-            it { is_expected.not_to have_received(:remove) }
+            it { is_expected.to have_received(:remove).with(precompiled_pathname) }
           end
         end
       end
     end
   end
 
-  describe '#remove_precompiled_templates?' do
-    subject { task.remove_precompiled_templates? }
+  describe '#leave_digest_named_templates?' do
+    subject { task.leave_digest_named_templates? }
     let(:templates) { [] }
 
     before do
-      Gakubuchi.configuration.remove_precompiled_templates = config_value
+      Gakubuchi.configuration.leave_digest_named_templates = config_value
     end
 
     context 'the configuration value is evaluated as true' do

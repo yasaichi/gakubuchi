@@ -8,19 +8,19 @@ RSpec.describe Gakubuchi::Configuration do
     it { is_expected.to be_an_instance_of Hash }
   end
 
-  describe '#remove_precompiled_templates' do
-    subject { configuration.remove_precompiled_templates }
+  describe '#leave_digest_named_templates' do
+    subject { configuration.leave_digest_named_templates }
 
     context 'a value was set by the attr_writer' do
       before do
-        configuration.remove_precompiled_templates = false
+        configuration.leave_digest_named_templates = true
       end
 
-      it { is_expected.to eq false }
+      it { is_expected.to eq true }
     end
 
     context 'a value was not set by the attr_writer' do
-      it { is_expected.to eq true }
+      it { is_expected.to eq false }
     end
   end
 

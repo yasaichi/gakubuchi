@@ -14,12 +14,12 @@ module Gakubuchi
         dest = template.destination_pathname
         FileUtils.copy_p(src, dest)
 
-        FileUtils.remove(src) if remove_precompiled_templates?
+        FileUtils.remove(src) unless leave_digest_named_templates?
       end
     end
 
-    def remove_precompiled_templates?
-      !!Gakubuchi.configuration.remove_precompiled_templates
+    def leave_digest_named_templates?
+      !!Gakubuchi.configuration.leave_digest_named_templates
     end
   end
 end

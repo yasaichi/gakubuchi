@@ -10,7 +10,7 @@ RSpec.describe Gakubuchi do
     let(:template_directory) { 'foo' }
     let(:expected_attrs) do
       {
-        remove_precompiled_templates: false,
+        leave_digest_named_templates: true,
         template_directory: template_directory
       }
     end
@@ -19,7 +19,7 @@ RSpec.describe Gakubuchi do
 
     before do
       Gakubuchi.configure do |config|
-        config.remove_precompiled_templates = false
+        config.leave_digest_named_templates = true
         config.template_directory = template_directory
       end
     end

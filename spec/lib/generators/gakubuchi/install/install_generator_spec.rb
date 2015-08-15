@@ -21,7 +21,7 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
         /\A
           Gakubuchi\.configure\ do\ \|config\|\n
           .*
-          \#\ config.remove_precompiled_templates\ =\ true\n
+          \#\ config.leave_digest_named_templates\ =\ false\n
           .*
           #{expected_configuration}\n
           .*

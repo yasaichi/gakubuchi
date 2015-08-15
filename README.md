@@ -86,7 +86,7 @@ Rails.application.config.assets.precompile += %w(error.css error.js)
 In `config/initializers/gakubuchi.rb`, you can configure the following values.
 
 ```
-remove_precompiled_templates # true by default
+leave_digest_named_templates # false by default
 template_directory           # 'templates' by default
 ```
 
