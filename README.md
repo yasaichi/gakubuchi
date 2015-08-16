@@ -82,6 +82,22 @@ Note that you may need to add them to the precompile array in `config/initialize
 Rails.application.config.assets.precompile += %w(error.css error.js)
 ```
 
+## Using helpers
+You can also use helpers provided by `Sprockets::Rails::Helper` in static pages.   
+Examples of them are given below.
+
+* `asset_path`
+* `content_tag`
+* `favicon_link_tag`
+* `image_tag`
+* `javascript_include_tag`
+
+If you want to get the list of all available helpers, please execute the following code.
+
+```ruby
+Sprockets::Rails::Helper.instance_methods
+```
+
 ## Configuration
 In `config/initializers/gakubuchi.rb`, you can configure the following values.
 
