@@ -7,8 +7,7 @@ module Gakubuchi
 
     %w(== === eql?).each do |method_name|
       define_method(method_name) do |other|
-        self.class == other.class &&
-        @pathname.__send__(method_name, other.pathname)
+        self.class == other.class && @pathname.__send__(method_name, other.pathname)
       end
     end
 

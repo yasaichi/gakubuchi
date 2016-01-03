@@ -16,7 +16,7 @@ RSpec.describe Gakubuchi::Template do
       ]
     end
 
-    it { is_expected.to contain_exactly *expectation }
+    it { is_expected.to match_array(expectation) }
   end
 
   describe '.root' do
@@ -29,12 +29,12 @@ RSpec.describe Gakubuchi::Template do
       subject { template.__send__(method_name, other) }
       let(:path) { template_root.join('foo.html.erb').to_s }
 
-      context "other is not a instance of Gakubuchi::Template" do
+      context 'other is not an instance of Gakubuchi::Template' do
         let(:other) { path }
         it { is_expected.to eq false }
       end
 
-      context 'other is a instance of Gakubuchi::Template' do
+      context 'other is an instance of Gakubuchi::Template' do
         let(:other) { described_class.new(other_path) }
 
         context '#pathname is equal to other.pathname' do
@@ -42,7 +42,7 @@ RSpec.describe Gakubuchi::Template do
           it { is_expected.to eq true }
         end
 
-        context "#pathname is not equal to other.pathname" do
+        context '#pathname is not equal to other.pathname' do
           let(:other_path) { template_root.join('foo/bar.html.erb').to_s }
           it { is_expected.to eq false }
         end
@@ -74,12 +74,12 @@ RSpec.describe Gakubuchi::Template do
   describe '#precompiled_pathname' do
     subject { template.precompiled_pathname }
 
-    context "template does not exist in specified path" do
+    context 'template does not exist in specified path' do
       let(:path) { template_root.join('not_exist.html.erb').to_s }
       it { is_expected.to eq nil }
     end
 
-    context "template exists in the specified path" do
+    context 'template exists in the specified path' do
       let(:path) { template_root.join('bar/baz.html.erb').to_s }
 
       it 'should return a pathname which refers to the precompiled template' do

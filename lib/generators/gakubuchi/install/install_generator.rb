@@ -13,7 +13,7 @@ module Gakubuchi
         desc: 'Name of directory for templates'
 
       def copy_initializer_file
-        template 'gakubuchi.rb', 'config/initializers/gakubuchi.rb'
+        template 'gakubuchi.rb.erb', 'config/initializers/gakubuchi.rb'
       end
 
       def create_template_directory

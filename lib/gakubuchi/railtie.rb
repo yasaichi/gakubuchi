@@ -1,6 +1,6 @@
 module Gakubuchi
   class Railtie < ::Rails::Railtie
-    initializer 'gakubuchi.assets.precompile' do |app|
+    initializer 'gakubuchi.assets.precompile' do
       TemplateEngine.new('Slim::Template').register!('.slim')
       TemplateEngine.new('Tilt::HamlTemplate').register!('.haml')
     end

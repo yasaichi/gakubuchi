@@ -20,11 +20,13 @@ Gem::Specification.new do |s|
   s.add_dependency "railties", ">= 4.0.0"
   s.add_dependency "sprockets-rails", "~> 2.0"
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails", ">= 3.0.1"
   s.add_development_dependency "ammeter", ">= 1.0.0"
-  s.add_development_dependency "codeclimate-test-reporter"
   s.add_development_dependency "appraisal", ">= 2.0.0"
+  s.add_development_dependency "codeclimate-test-reporter"
   s.add_development_dependency "haml-rails"
+  s.add_development_dependency "rspec-rails", ">= 3.0.1"
+  s.add_development_dependency "rubocop"
+  s.add_development_dependency "simplecov"
   s.add_development_dependency "slim-rails"
+  s.add_development_dependency "sqlite3"
 end

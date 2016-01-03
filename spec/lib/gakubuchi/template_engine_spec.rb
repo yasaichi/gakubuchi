@@ -23,7 +23,7 @@ RSpec.describe Gakubuchi::TemplateEngine do
   describe '#register!' do
     subject { template_engine.register!(extname) }
 
-    context "#engine isn't a class" do
+    context '#engine is not a class' do
       let(:engine) { 'Foo' }
       let(:extname) { '.erb' }
 
@@ -37,7 +37,7 @@ RSpec.describe Gakubuchi::TemplateEngine do
       it { is_expected.to eq false }
     end
 
-    context "#engine is not yet registered for specified extname" do
+    context '#engine is not yet registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.foo' }
 
@@ -62,7 +62,7 @@ RSpec.describe Gakubuchi::TemplateEngine do
       it { is_expected.to eq true }
     end
 
-    context "#engine is not yet registered for specified extname" do
+    context '#engine is not yet registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.foo' }
 

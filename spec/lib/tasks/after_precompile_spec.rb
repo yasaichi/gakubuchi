@@ -21,7 +21,7 @@ describe 'rake assets:precompile' do
       Rake::Task['assets:precompile'].execute
     end
 
-    it { is_expected.to contain_exactly *expectation }
+    it { is_expected.to match_array(expectation) }
   end
 
   describe 'task' do

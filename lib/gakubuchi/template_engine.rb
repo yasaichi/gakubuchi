@@ -23,7 +23,7 @@ module Gakubuchi
 
     def registered?(extname)
       ext = normalize_extension(extname)
-      assets.engines.has_key?(ext) && assets.engines[ext] == engine
+      assets.engines.key?(ext) && assets.engines[ext] == engine
     end
   end
 end

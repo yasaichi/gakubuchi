@@ -1,9 +1,16 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
-if ENV['CODECLIMATE_REPO_TOKEN']
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
+require 'simplecov'
+require 'codeclimate-test-reporter'
+
+SimpleCov.start do
+  add_filter '/spec/'
+
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    CodeClimate::TestReporter::Formatter
+  ])
 end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
