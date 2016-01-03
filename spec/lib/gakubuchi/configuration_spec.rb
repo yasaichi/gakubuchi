@@ -11,7 +11,7 @@ RSpec.describe Gakubuchi::Configuration do
   describe '#leave_digest_named_templates' do
     subject { configuration.leave_digest_named_templates }
 
-    context 'a value was set by the attr_writer' do
+    context 'when a value was set by the attr_writer' do
       before do
         configuration.leave_digest_named_templates = true
       end
@@ -19,7 +19,7 @@ RSpec.describe Gakubuchi::Configuration do
       it { is_expected.to eq true }
     end
 
-    context 'a value was not set by the attr_writer' do
+    context 'when a value was not set by the attr_writer' do
       it { is_expected.to eq false }
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe Gakubuchi::Configuration do
   describe '#template_directory' do
     subject { configuration.template_directory }
 
-    context 'a value was set by the attr_writer' do
+    context 'when a value was set by the attr_writer' do
       before do
         configuration.template_directory = 'foo'
       end
@@ -35,7 +35,7 @@ RSpec.describe Gakubuchi::Configuration do
       it { is_expected.to eq 'foo' }
     end
 
-    context 'a value was not set by the attr_writer' do
+    context 'when a value was not set by the attr_writer' do
       it { is_expected.to eq 'templates' }
     end
   end

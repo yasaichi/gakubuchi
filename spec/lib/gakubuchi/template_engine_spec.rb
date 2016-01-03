@@ -8,12 +8,12 @@ RSpec.describe Gakubuchi::TemplateEngine do
     describe "##{described_method}" do
       subject { template_engine.public_send(described_method) }
 
-      context 'specified engine is uninitialized' do
+      context 'when specified engine is uninitialized' do
         let(:engine) { 'Foo' }
         it { is_expected.to eq nil }
       end
 
-      context 'specified engine is initialized' do
+      context 'when specified engine is initialized' do
         let(:engine) { 'Sprockets::ERBProcessor' }
         it { is_expected.to eq Sprockets::ERBProcessor }
       end
@@ -23,21 +23,21 @@ RSpec.describe Gakubuchi::TemplateEngine do
   describe '#register!' do
     subject { template_engine.register!(extname) }
 
-    context '#engine is not a class' do
+    context 'when #engine is not a class' do
       let(:engine) { 'Foo' }
       let(:extname) { '.erb' }
 
       it { is_expected.to eq false }
     end
 
-    context '#engine is already registered for specified extname' do
+    context 'when #engine is already registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.erb' }
 
       it { is_expected.to eq false }
     end
 
-    context '#engine is not yet registered for specified extname' do
+    context 'when #engine is not yet registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.foo' }
 
@@ -55,14 +55,14 @@ RSpec.describe Gakubuchi::TemplateEngine do
   describe '#registered?' do
     subject { template_engine.registered?(extname) }
 
-    context '#engine is already registered for specified extname' do
+    context 'when #engine is already registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.erb' }
 
       it { is_expected.to eq true }
     end
 
-    context '#engine is not yet registered for specified extname' do
+    context 'when #engine is not yet registered for specified extname' do
       let(:engine) { Sprockets::ERBProcessor }
       let(:extname) { '.foo' }
 

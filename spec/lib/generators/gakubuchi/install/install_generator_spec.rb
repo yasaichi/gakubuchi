@@ -29,7 +29,7 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
         \Z/mx
       end
 
-      context 'directory is not specified' do
+      context 'when directory is not specified' do
         let(:args) { [] }
         let(:expected_configuration) { %q(\#\ config.template_directory\ =\ 'templates') }
 
@@ -38,7 +38,7 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
         it { is_expected.to contain expected_content }
       end
 
-      context 'directory is specified' do
+      context 'when directory is specified' do
         let(:args) { %w(--directory=foo) }
         let(:expected_configuration) { %q(config.template_directory\ =\ 'foo') }
 

@@ -22,7 +22,7 @@ RSpec.describe Gakubuchi::Task do
         allow(subject).to receive(:remove)
       end
 
-      context 'precompiled pathname is nil' do
+      context 'when precompiled pathname is nil' do
         let(:precompiled_pathname) { nil }
 
         before do
@@ -38,7 +38,7 @@ RSpec.describe Gakubuchi::Task do
         end
       end
 
-      context 'precompiled pathname is not nil' do
+      context 'when precompiled pathname is not nil' do
         let(:precompiled_pathname) { double(:pathname) }
 
         describe '.copy_p' do
@@ -57,12 +57,12 @@ RSpec.describe Gakubuchi::Task do
             task.execute!
           end
 
-          context '#leave_digest_named_templates? returns true' do
+          context 'when #leave_digest_named_templates? returns true' do
             let(:return_value) { true }
             it { is_expected.not_to have_received(:remove) }
           end
 
-          context '#leave_digest_named_templates? returns false' do
+          context 'when #leave_digest_named_templates? returns false' do
             let(:return_value) { false }
             it { is_expected.to have_received(:remove).with(precompiled_pathname) }
           end
@@ -79,12 +79,12 @@ RSpec.describe Gakubuchi::Task do
       Gakubuchi.configuration.leave_digest_named_templates = config_value
     end
 
-    context 'the configuration value is evaluated as true' do
+    context 'when the configuration value is evaluated as true' do
       let(:config_value) { 1 }
       it { is_expected.to eq true }
     end
 
-    context 'the configuration value is evaluated as false' do
+    context 'when the configuration value is evaluated as false' do
       let(:config_value) { nil }
       it { is_expected.to eq false }
     end
