@@ -19,7 +19,7 @@ module Gakubuchi
     end
 
     def leave_digest_named_templates?
-      !!Gakubuchi.configuration.leave_digest_named_templates
+      !!::Gakubuchi.configuration.leave_digest_named_templates
     end
   end
 end
