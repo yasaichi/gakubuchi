@@ -4,7 +4,7 @@ module Gakubuchi
     include ::ActiveSupport::Configurable
 
     private :config
-    def_delegators :config, :to_h
+    def_delegator :config, :to_h
 
     config_accessor :leave_digest_named_templates do
       false

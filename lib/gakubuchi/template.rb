@@ -3,7 +3,7 @@ module Gakubuchi
     extend ::Forwardable
 
     attr_reader :pathname
-    def_delegators :@pathname, :hash
+    def_delegator :@pathname, :hash
 
     %w(== === eql?).each do |method_name|
       define_method(method_name) do |other|
