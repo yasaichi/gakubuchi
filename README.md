@@ -106,10 +106,6 @@ leave_digest_named_templates # false by default
 template_directory           # 'templates' by default
 ```
 
-## Supported versions
-* Ruby: `2.0.0` or later
-* Rails: `4.0.0` or later
-
 ## Contributing
 You should follow the steps below.
 
