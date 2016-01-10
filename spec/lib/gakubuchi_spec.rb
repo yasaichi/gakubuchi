@@ -7,20 +7,19 @@ RSpec.describe Gakubuchi do
   end
 
   describe '.configure' do
-    let(:template_directory) { 'foo' }
+    subject { described_class.configuration }
+
     let(:expected_attrs) do
       {
         leave_digest_named_templates: true,
-        template_directory: template_directory
+        template_directory: 'foo'
       }
     end
 
-    subject { described_class.configuration }
-
     before do
       Gakubuchi.configure do |config|
-        config.leave_digest_named_templates = true
-        config.template_directory = template_directory
+        config.leave_digest_named_templates = expected_attrs[:leave_digest_named_templates]
+        config.template_directory =  expected_attrs[:template_directory]
       end
     end
 
