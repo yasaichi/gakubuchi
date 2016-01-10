@@ -17,7 +17,7 @@ module Gakubuchi
       private
 
       def logging(message)
-        ::Logger.new(STDOUT).info(message)
+        ::Logger.new(::STDOUT).info(message)
       end
     end
   end
