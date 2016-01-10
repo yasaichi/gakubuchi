@@ -90,7 +90,7 @@ RSpec.describe Gakubuchi::Task do
     end
 
     after do
-      Gakubuchi.configuration = Gakubuchi::Configuration.new
+      Gakubuchi.reset
     end
   end
 end
