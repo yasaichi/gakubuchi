@@ -26,5 +26,9 @@ module Gakubuchi
     def configure
       yield(configuration) if block_given?
     end
+
+    def reset
+      @configuration = nil
+    end
   end
 end
