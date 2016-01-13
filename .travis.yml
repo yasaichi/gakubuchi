@@ -9,3 +9,6 @@ gemfile:
   - gemfiles/rails40x.gemfile
   - gemfiles/rails41x.gemfile
   - gemfiles/rails42x.gemfile
+branches:
+  only:
+    - master
