@@ -10,6 +10,7 @@ require 'gakubuchi/version'
 
 if defined?(::Rails::Railtie) && defined?(::Sprockets::Railtie)
   require 'pathname'
+  require 'gakubuchi/engine_registrar'
   require 'gakubuchi/template'
   require 'gakubuchi/template_engine'
   require 'gakubuchi/railtie'
