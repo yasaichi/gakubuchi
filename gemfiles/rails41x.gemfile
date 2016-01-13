@@ -6,6 +6,7 @@ gem "railties", "~> 4.1.0"
 
 group :development, :test do
   gem "pry-byebug"
+  gem "pry-coolline"
 end
 
 gemspec :path => "../"
