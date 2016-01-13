@@ -4,6 +4,7 @@ require 'logger'
 require 'active_support/configurable'
 
 require 'gakubuchi/configuration'
+require 'gakubuchi/error'
 require 'gakubuchi/fileutils'
 require 'gakubuchi/task'
 require 'gakubuchi/version'

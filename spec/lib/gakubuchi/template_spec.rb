@@ -1,22 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe Gakubuchi::Template do
+  let(:template) { described_class.new(source_path) }
   let(:template_root) { described_class.root }
-  let(:template) { described_class.new(path) }
 
   describe '.all' do
     subject { described_class.all }
 
     let(:expectation) do
       [
-        described_class.new(described_class.root.join('foo.html.erb')),
-        described_class.new(described_class.root.join('bar/baz.html.erb')),
-        described_class.new(described_class.root.join('qux.html.haml')),
-        described_class.new(described_class.root.join('quux.html.slim'))
+        described_class.new('foo.html.erb'),
+        described_class.new('bar/baz.html.erb'),
+        described_class.new('qux.html.haml'),
+        described_class.new('quux.html.slim')
       ]
     end
 
     it { is_expected.to match_array(expectation) }
+  end
+
+  describe '.new' do
+    subject { -> { described_class.new(source_path) } }
+
+    context 'when source path does not refer to a template file' do
+      let(:source_path) { 'foo.txt' }
+      let(:error_message) { 'source path must refer to a template file' }
+
+      it { is_expected.to raise_error(Gakubuchi::Error::InvalidTemplate, error_message) }
+    end
+
+    context 'when source path refers to a template file' do
+      context 'when tha path is relative' do
+        let(:source_path) { 'foo.html.erb' }
+        it { is_expected.not_to raise_error }
+      end
+
+      context "when the path is absolute and begins with #{described_class}.root" do
+        let(:source_path) { template_root.join('foo.html.erb') }
+        it { is_expected.not_to raise_error }
+      end
+
+      context "when the path is absolute but does not begin with #{described_class}.root" do
+        let(:source_path) { '/foo.html.erb' }
+        let(:error_message) { "template must exist in #{described_class.root}" }
+
+        it { is_expected.to raise_error(Gakubuchi::Error::InvalidTemplate, error_message) }
+      end
+    end
   end
 
   describe '.root' do
@@ -27,74 +57,78 @@ RSpec.describe Gakubuchi::Template do
   %w(== === eql?).each do |method_name|
     describe "##{method_name}" do
       subject { template.__send__(method_name, other) }
-      let(:path) { template_root.join('foo.html.erb').to_s }
+      let(:source_path) { 'foo.html.erb' }
 
       context 'when other is not an instance of Gakubuchi::Template' do
-        let(:other) { path }
+        let(:other) { source_path }
         it { is_expected.to eq false }
       end
 
       context 'when other is an instance of Gakubuchi::Template' do
-        let(:other) { described_class.new(other_path) }
+        let(:other) { described_class.new(other_source_path) }
 
-        context 'when #pathname is equal to other.pathname' do
-          let(:other_path) { path }
+        context 'when #source_path is equal to other.source_path' do
+          let(:other_source_path) { source_path }
           it { is_expected.to eq true }
         end
 
-        context 'when #pathname is not equal to other.pathname' do
-          let(:other_path) { template_root.join('foo/bar.html.erb').to_s }
+        context 'when #source_path is not equal to other.source_path' do
+          let(:other_source_path) { 'bar/baz.html.erb' }
           it { is_expected.to eq false }
         end
       end
     end
   end
 
-  describe '#destination_pathname' do
-    subject { template.destination_pathname }
-    let(:path) { template_root.join('bar/baz.html.erb').to_s }
+  describe '#destination_path' do
+    subject { template.destination_path }
+    let(:source_path) { 'bar/baz.html.erb' }
 
     it { is_expected.to eq Rails.public_path.join('bar/baz.html') }
   end
 
+  describe '#digest_path' do
+    subject { template.digest_path }
+
+    context 'when template does not exist in specified source path' do
+      let(:source_path) { 'not_exist.html.erb' }
+      it { is_expected.to eq nil }
+    end
+
+    context 'when template exists in specified source path' do
+      let(:source_path) { 'bar/baz.html.erb' }
+      let(:expectation) { Rails.public_path.join('assets', 'bar/baz-[a-z0-9]*.html').to_s }
+
+      it { is_expected.to be_an_instance_of Pathname }
+      it { is_expected.to be_fnmatch(expectation) }
+    end
+  end
+
   describe '#extnanme' do
     subject { template.extname }
-    let(:path) { template_root.join('foo.html.erb').to_s }
+    let(:source_path) { 'foo.html.erb' }
 
     it { is_expected.to eq '.html.erb' }
   end
 
-  describe '#pathname' do
-    subject { template.pathname }
-    let(:path) { template_root.join('foo/bar.html.erb').to_s }
+  describe '#logical_path' do
+    subject { template.logical_path }
+    let(:source_path) { 'bar/baz.html.erb' }
 
-    it { is_expected.to eq Pathname.new(path) }
+    it { is_expected.to eq Pathname.new('bar/baz.html') }
   end
 
-  describe '#precompiled_pathname' do
-    subject { template.precompiled_pathname }
+  describe '#source_path' do
+    subject { template.source_path }
 
-    context 'when template does not exist in specified path' do
-      let(:path) { template_root.join('not_exist.html.erb').to_s }
-      it { is_expected.to eq nil }
+    context 'when specified source path is relative' do
+      let(:source_path) { 'foo.html.erb' }
+      it { is_expected.to eq template_root.join(source_path) }
     end
 
-    context 'when template exists in the specified path' do
-      let(:path) { template_root.join('bar/baz.html.erb').to_s }
-
-      it 'should return a pathname which refers to the precompiled template' do
-        expected_path = Rails.public_path.join('assets', 'bar/baz-[a-z0-9]+.html').to_s
-
-        expect(subject).to be_an_instance_of Pathname
-        expect(subject.to_s).to match Regexp.new(expected_path)
-      end
+    context 'when specified source path is absolute' do
+      let(:source_path) { template_root.join('foo.html.erb') }
+      it { is_expected.to eq source_path }
     end
-  end
-
-  describe '#relative_pathname' do
-    subject { template.relative_pathname }
-    let(:path) { template_root.join('bar/baz.html.erb').to_s }
-
-    it { is_expected.to eq Pathname.new('bar/baz.html.erb') }
   end
 end
