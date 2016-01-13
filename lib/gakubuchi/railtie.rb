@@ -1,8 +1,10 @@
 module Gakubuchi
   class Railtie < ::Rails::Railtie
-    initializer 'gakubuchi.assets.precompile' do
-      TemplateEngine.new('Slim::Template').register!('.slim')
-      TemplateEngine.new('Tilt::HamlTemplate').register!('.haml')
+    config.assets.configure do |env|
+      engine_registrar = EngineRegistrar.new(env)
+
+      engine_registrar.register(:haml, '::Tilt::HamlTemplate')
+      engine_registrar.register(:slim, '::Slim::Template')
     end
 
     rake_tasks do
