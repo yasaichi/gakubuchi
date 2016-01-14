@@ -7,10 +7,8 @@ RSpec.describe Gakubuchi::Task do
     let(:templates) { [template] }
 
     let(:template) do
-      path = Gakubuchi::Template.root.join('foo.html.erb').to_s
-
-      Gakubuchi::Template.new(path).tap do |template|
-        allow(template).to receive(:precompiled_pathname).and_return(precompiled_pathname)
+      Gakubuchi::Template.new('foo.html.erb').tap do |template|
+        allow(template).to receive(:digest_path).and_return(digest_path)
       end
     end
 
@@ -22,8 +20,8 @@ RSpec.describe Gakubuchi::Task do
         allow(subject).to receive(:remove)
       end
 
-      context 'when precompiled pathname is nil' do
-        let(:precompiled_pathname) { nil }
+      context 'when digest path is nil' do
+        let(:digest_path) { nil }
 
         before do
           task.execute!
@@ -38,17 +36,17 @@ RSpec.describe Gakubuchi::Task do
         end
       end
 
-      context 'when precompiled pathname is not nil' do
-        let(:precompiled_pathname) { double(:pathname) }
+      context 'when digest path is not nil' do
+        let(:digest_path) { double(:pathname) }
 
         describe '.copy_p' do
-          let(:dest) { template.destination_pathname }
+          let(:dest) { template.destination_path }
 
           before do
             task.execute!
           end
 
-          it { is_expected.to have_received(:copy_p).with(precompiled_pathname, dest) }
+          it { is_expected.to have_received(:copy_p).with(digest_path, dest) }
         end
 
         describe '.remove' do
@@ -64,7 +62,7 @@ RSpec.describe Gakubuchi::Task do
 
           context 'when #leave_digest_named_templates? returns false' do
             let(:return_value) { false }
-            it { is_expected.to have_received(:remove).with(precompiled_pathname) }
+            it { is_expected.to have_received(:remove).with(digest_path) }
           end
         end
       end
