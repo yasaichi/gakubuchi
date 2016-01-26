@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.2.0 (January 26, 2016)
+* Support sprockets-rails v3.0.0 or later
+
 ## 1.1.0 (January 15, 2016)
 * Add `Gakubuchi.reset` for better testing
 
