@@ -14,7 +14,7 @@ module Gakubuchi
         dest = template.destination_path
         FileUtils.copy_p(src, dest)
 
-        FileUtils.remove(src) unless leave_digest_named_templates?
+        FileUtils.remove([src, *::Dir.glob("#{src}.gz")]) unless leave_digest_named_templates?
       end
     end
 
