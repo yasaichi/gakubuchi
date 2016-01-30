@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.2.1 (January 30, 2016)
+* Remove compressed templates for sprockets v3.5.0 or later
+
 ## 1.2.0 (January 26, 2016)
 * Support sprockets-rails v3.0.0 or later
 
