@@ -5,12 +5,7 @@ RSpec.describe Gakubuchi::Task do
 
   describe '#execute!' do
     let(:templates) { [template] }
-
-    let(:template) do
-      Gakubuchi::Template.new('foo.html.erb').tap do |template|
-        allow(template).to receive(:digest_path).and_return(digest_path)
-      end
-    end
+    let(:template) { Gakubuchi::Template.new(source_path) }
 
     describe 'Gakubuchi::FileUtils' do
       subject { Gakubuchi::FileUtils }
@@ -20,8 +15,8 @@ RSpec.describe Gakubuchi::Task do
         allow(subject).to receive(:remove)
       end
 
-      context 'when digest path is nil' do
-        let(:digest_path) { nil }
+      context 'when template does not exist in specified source path' do
+        let(:source_path) { 'not_exist.html.erb' }
 
         before do
           task.execute!
@@ -36,17 +31,17 @@ RSpec.describe Gakubuchi::Task do
         end
       end
 
-      context 'when digest path is not nil' do
-        let(:digest_path) { double(:pathname) }
+      context 'when template exists in specified source path' do
+        let(:source_path) { 'foo.html.erb' }
 
         describe '.copy_p' do
-          let(:dest) { template.destination_path }
+          let(:expectation) { [template.digest_path, template.destination_path] }
 
           before do
             task.execute!
           end
 
-          it { is_expected.to have_received(:copy_p).with(digest_path, dest) }
+          it { is_expected.to have_received(:copy_p).with(*expectation) }
         end
 
         describe '.remove' do
@@ -62,7 +57,9 @@ RSpec.describe Gakubuchi::Task do
 
           context 'when #leave_digest_named_templates? returns false' do
             let(:return_value) { false }
-            it { is_expected.to have_received(:remove).with(digest_path) }
+            let(:expectation) { a_collection_including(template.digest_path) }
+
+            it { is_expected.to have_received(:remove).with(expectation) }
           end
         end
       end
