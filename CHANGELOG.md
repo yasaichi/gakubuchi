@@ -1,4 +1,7 @@
 # CHANGELOG
+## [1.2.2](https://github.com/yasaichi/gakubuchi/releases/tag/v1.2.2) (April 29, 2016)
+* Fix the error raised when `rails s` is executed without Haml
+
 ## [1.2.1](https://github.com/yasaichi/gakubuchi/releases/tag/v1.2.1) (January 30, 2016)
 * Remove compressed templates for sprockets v3.5.0 or later
 
