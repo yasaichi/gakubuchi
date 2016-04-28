@@ -20,7 +20,7 @@ module Gakubuchi
 
     def constantize(klass)
       klass.to_s.constantize
-    rescue ::NameError
+    rescue ::LoadError, ::NameError
       nil
     end
   end
