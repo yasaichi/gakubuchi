@@ -1,18 +1,18 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Gakubuchi do
-  describe '.configuration' do
+  describe ".configuration" do
     subject { described_class.configuration }
     it { is_expected.to be_an_instance_of Gakubuchi::Configuration }
   end
 
-  describe '.configure' do
+  describe ".configure" do
     subject { described_class.configuration }
 
     let(:expected_attrs) do
       {
         leave_digest_named_templates: true,
-        template_directory: 'foo'
+        template_directory: "foo"
       }
     end
 

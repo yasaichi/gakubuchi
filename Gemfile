@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in gakubuchi.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -11,6 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 group :development, :test do
-  gem 'pry-byebug'
-  gem 'pry-coolline'
+  gem "pry-byebug"
+  gem "pry-coolline"
 end

@@ -11,7 +11,7 @@ module Gakubuchi
     end
 
     config_accessor :template_directory do
-      'templates'
+      "templates"
     end
   end
 end
