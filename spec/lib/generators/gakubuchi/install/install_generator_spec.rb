@@ -1,21 +1,21 @@
-require 'rails_helper'
-require 'ammeter/init'
-require 'generators/gakubuchi/install/install_generator'
+require "rails_helper"
+require "ammeter/init"
+require "generators/gakubuchi/install/install_generator"
 
 RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
-  destination File.expand_path('../tmp', __FILE__)
+  destination File.expand_path("../tmp", __FILE__)
 
   before do
     prepare_destination
   end
 
-  describe 'generated files' do
+  describe "generated files" do
     before do
       run_generator(args)
     end
 
-    describe 'config/initializers/gakubuchi.rb' do
-      subject { file('config/initializers/gakubuchi.rb') }
+    describe "config/initializers/gakubuchi.rb" do
+      subject { file("config/initializers/gakubuchi.rb") }
 
       let(:expected_content) do
         /\A
@@ -29,7 +29,7 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
         \Z/mx
       end
 
-      context 'when directory is not specified' do
+      context "when directory is not specified" do
         let(:args) { [] }
         let(:expected_configuration) { %q(\#\ config.template_directory\ =\ 'templates') }
 
@@ -38,7 +38,7 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
         it { is_expected.to contain expected_content }
       end
 
-      context 'when directory is specified' do
+      context "when directory is specified" do
         let(:args) { %w(--directory=foo) }
         let(:expected_configuration) { %q(config.template_directory\ =\ 'foo') }
 

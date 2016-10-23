@@ -12,11 +12,11 @@ module Gakubuchi
     end
 
     def self.all
-      ::Dir.glob(root.join('**/*.html*')).map { |source_path| new(source_path) }
+      ::Dir.glob(root.join("**/*.html*")).map { |source_path| new(source_path) }
     end
 
     def self.root
-      ::Rails.root.join('app/assets', ::Gakubuchi.configuration.template_directory)
+      ::Rails.root.join("app/assets", ::Gakubuchi.configuration.template_directory)
     end
 
     def initialize(source_path)
@@ -27,9 +27,9 @@ module Gakubuchi
       @source_path = path.absolute? ? path : root.join(path)
 
       case
-      when !@extname.include?('html')
-        fail Error::InvalidTemplate, 'source path must refer to a template file'
-      when !@source_path.fnmatch?(root.join('*').to_s)
+      when !@extname.include?("html")
+        fail Error::InvalidTemplate, "source path must refer to a template file"
+      when !@source_path.fnmatch?(root.join("*").to_s)
         fail Error::InvalidTemplate, "template must exist in #{root}"
       end
     end

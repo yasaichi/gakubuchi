@@ -71,6 +71,9 @@ gemfiles/*.lock
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
+# RuboCop cache
+.rubocop-http*
+
 
 ### https://raw.github.com/github/gitignore/47b1ace3d0b71722ea93be14f42846ab3329f161/Global/JetBrains.gitignore
 

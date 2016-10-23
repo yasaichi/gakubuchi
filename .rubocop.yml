@@ -1,13 +1,17 @@
-AllCops:
-  RunRailsCops: true
-  Exclude:
-    - 'gakubuchi.gemspec'
-    - 'spec/rails_helper.rb'
-    - 'spec/spec_helper.rb'
-    - 'spec/dummy/**/*'
+inherit_from:
+  - https://raw.githubusercontent.com/rails/rails/master/.rubocop.yml
 
-Documentation:
-  Enabled: false
+AllCops:
+  Rails:
+    Enabled: true
+  Exclude:
+    - "gakubuchi.gemspec"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+    - "spec/dummy/**/*"
 
 LineLength:
   Max: 100
+
+Style/IndentationConsistency:
+  EnforcedStyle: normal
