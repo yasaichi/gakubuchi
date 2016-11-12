@@ -35,13 +35,22 @@ RSpec.describe Gakubuchi::Task do
         let(:source_path) { "foo.html.erb" }
 
         describe ".copy_p" do
-          let(:expectation) { [template.digest_path, template.destination_path] }
-
           before do
+            allow(task).to receive(:copy_templates_to_public?).and_return(return_value)
             task.execute!
           end
 
-          it { is_expected.to have_received(:copy_p).with(*expectation) }
+          context "when #copy_templates_to_public? returns true" do
+            let(:return_value) { true }
+            let(:expectation) { [template.digest_path, template.destination_path] }
+
+            it { is_expected.to have_received(:copy_p).with(*expectation) }
+          end
+
+          context "when #copy_templates_to_public? returns false" do
+            let(:return_value) { false }
+            it { is_expected.not_to have_received(:copy_p) }
+          end
         end
 
         describe ".remove" do

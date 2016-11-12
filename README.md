@@ -98,11 +98,24 @@ If you want to get the list of all available helpers, please execute the followi
 Sprockets::Rails::Helper.instance_methods
 ```
 
+## Using `Gakubuchi::PublicException`
+
+Gakubuchi provides a special exceptions app as `Gakubuchi::PublicException`
+that allows digest-named templates (like `public/assets/404-*.html.slim`) themselves to show
+error pages.
+
+```ruby
+Rails.application.config.exceptions_app = Gakubuchi::PublicExceptions.new(Rails.public_path)
+```
+
+Using it, `public/404.html` is no longer needed and you can set copy_templates_to_public to false.
+
 ## Configuration
 In `config/initializers/gakubuchi.rb`, you can configure the following values.
 
 ```
 leave_digest_named_templates # false by default
+copy_templates_to_public     # true by default
 template_directory           # 'templates' by default
 ```
 
