@@ -14,6 +14,7 @@ if defined?(::Rails::Railtie) && defined?(::Sprockets::Railtie)
   require "gakubuchi/engine_registrar"
   require "gakubuchi/template"
   require "gakubuchi/railtie"
+  require "gakubuchi/public_exceptions"
 end
 
 module Gakubuchi

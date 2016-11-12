@@ -10,6 +10,10 @@ module Gakubuchi
       false
     end
 
+    config_accessor :copy_templates_to_public do
+      true
+    end
+
     config_accessor :template_directory do
       "templates"
     end
