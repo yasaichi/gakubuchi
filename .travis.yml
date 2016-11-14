@@ -2,13 +2,19 @@ language: ruby
 sudo: false
 rvm:
   - 2.0
-  - 2.1
-  - 2.2
-  - 2.3.0
+  - 2.1.9
+  - 2.2.5
+  - 2.3.1
 gemfile:
-  - gemfiles/rails40x.gemfile
-  - gemfiles/rails41x.gemfile
-  - gemfiles/rails42x.gemfile
+  - gemfiles/sprockets_rails_2_with_sprockets_2.gemfile
+  - gemfiles/sprockets_rails_2_with_sprockets_3.gemfile
+  - gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
+matrix:
+  exclude:
+    - rvm: 2.0
+      gemfile: gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
+    - rvm: 2.1.9
+      gemfile: gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
 branches:
   only:
     - master
