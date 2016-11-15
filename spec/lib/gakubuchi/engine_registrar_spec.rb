@@ -23,8 +23,8 @@ RSpec.describe Gakubuchi::EngineRegistrar do
     end
 
     context "when specified target is already registered" do
-      let(:target) { :coffee }
-      let(:engine) { "Sprockets::ERBProcessor" }
+      let(:target) { :sass }
+      let(:engine) { "Sprockets::SassTemplate" }
 
       describe "env.engines" do
         subject { -> { env.engines } }
@@ -39,11 +39,11 @@ RSpec.describe Gakubuchi::EngineRegistrar do
 
     context "when specified target is not registered" do
       let(:target) { :foo }
-      let(:engine) { "Sprockets::ERBProcessor" }
+      let(:engine) { "Sprockets::SassTemplate" }
 
       describe "env.engines" do
         subject { -> { env.engines } }
-        let(:expectation) { a_hash_including(".foo" => Sprockets::ERBProcessor) }
+        let(:expectation) { a_hash_including(".foo" => Sprockets::SassTemplate) }
 
         it { expect(&described_method).to change(&subject).to(expectation) }
       end

@@ -39,10 +39,10 @@ module Gakubuchi
     end
 
     def digest_path
-      resolved_path = view_context.asset_digest_path(logical_path.to_s)
-      return if resolved_path.nil?
+      asset = assets.find_asset(logical_path)
+      return if asset.nil?
 
-      ::Pathname.new(::File.join(::Rails.public_path, view_context.assets_prefix, resolved_path))
+      ::Pathname.new(::File.join(::Rails.public_path, app.config.assets.prefix, asset.digest_path))
     end
 
     def logical_path
@@ -52,13 +52,23 @@ module Gakubuchi
 
     private
 
+    def app
+      ::Rails.application
+    end
+
+    # TODO: Cache @assets by Gakubuchi::Task instance because to call #find_asset
+    # for the first time takes much time and would cause performance problem.
+    def assets
+      return @assets if @assets
+
+      @assets = app.assets || ::Sprockets::Railtie.build_environment(app)
+      @assets = @assets.cached if @assets.respond_to?(:cached)
+      @assets
+    end
+
     def extract_extname(path)
       extname = path.extname
       extname.empty? ? extname : "#{extract_extname(path.basename(extname))}#{extname}"
-    end
-
-    def view_context
-      @view_context ||= ::ActionView::Base.new
     end
   end
 end
