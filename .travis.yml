@@ -9,12 +9,17 @@ gemfile:
   - gemfiles/sprockets_rails_2_with_sprockets_2.gemfile
   - gemfiles/sprockets_rails_2_with_sprockets_3.gemfile
   - gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
+  - gemfiles/sprockets_rails_3_with_sprockets_4.gemfile
 matrix:
   exclude:
     - rvm: 2.0
       gemfile: gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
     - rvm: 2.1.9
       gemfile: gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
+    - rvm: 2.0
+      gemfile: gemfiles/sprockets_rails_3_with_sprockets_4.gemfile
+    - rvm: 2.1.9
+      gemfile: gemfiles/sprockets_rails_3_with_sprockets_4.gemfile
 branches:
   only:
     - master

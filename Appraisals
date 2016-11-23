@@ -20,3 +20,8 @@ appraise "sprockets-rails 3 with sprockets 3" do
   gem "sprockets-rails", "~> 3.0"
   gem "sprockets", "~> 3.0"
 end
+
+appraise "sprockets-rails 3 with sprockets 4" do
+  gem "sprockets-rails", "~> 3.0"
+  gem "sprockets", "~> 4.0.0.beta1"
+end
