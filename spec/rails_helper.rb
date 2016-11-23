@@ -2,15 +2,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
-require 'codeclimate-test-reporter'
 
 SimpleCov.start do
   add_filter '/spec/'
-
-  formatter SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::HTMLFormatter,
-    CodeClimate::TestReporter::Formatter
-  ])
 end
 
 require File.expand_path('../dummy/config/environment', __FILE__)

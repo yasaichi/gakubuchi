@@ -13,8 +13,14 @@ Dummy::Application.configure do
   config.eager_load = false
 
   # Configure static file server for tests with Cache-Control for performance.
-  config.serve_static_files   = true
-  config.static_cache_control = 'public, max-age=3600'
+  case Rails::VERSION::MAJOR
+  when 4
+    config.serve_static_files   = true
+    config.static_cache_control = 'public, max-age=3600'
+  when 5
+    config.public_file_server.enabled = true
+    config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
+  end
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
