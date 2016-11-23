@@ -18,3 +18,5 @@ matrix:
 branches:
   only:
     - master
+after_script:
+  - bundle exec codeclimate-test-reporter
