@@ -123,7 +123,7 @@ bundle install
 appraisal install
 
 # Run RSpec with a specific combination
-appraisal sprockets_rails_3_with_sprockets_3 rspec
+appraisal 'sprockets-rails 3 with sprockets 3' rspec
 
 # Run RSpec with all combinations
 appraisal rspec
