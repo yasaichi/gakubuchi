@@ -14,9 +14,10 @@ Gem::Specification.new do |s|
   s.description = "Gakubuchi provides a simple way to manage static pages with Asset Pipeline."
   s.license     = "MIT"
 
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = ">= 2.0.0"
   s.files = Dir["lib/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  s.add_dependency "grease", "~> 0.3.0"
   s.add_dependency "railties", ">= 4.0.0"
   s.add_dependency "sprockets-rails", ">= 2.0.0"
 
