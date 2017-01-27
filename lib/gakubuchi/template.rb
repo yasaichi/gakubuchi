@@ -68,7 +68,8 @@ module Gakubuchi
 
     def extract_extname(path)
       extname = path.extname
-      extname.empty? ? extname : "#{extract_extname(path.basename(extname))}#{extname}"
+      extname.empty? || extname == ".html" ?
+        extname : "#{extract_extname(path.basename(extname))}#{extname}"
     end
   end
 end
