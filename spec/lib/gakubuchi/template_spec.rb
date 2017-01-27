@@ -83,9 +83,18 @@ RSpec.describe Gakubuchi::Template do
 
   describe "#destination_path" do
     subject { template.destination_path }
-    let(:source_path) { "bar/baz.html.erb" }
 
-    it { is_expected.to eq Rails.public_path.join("bar/baz.html") }
+    context "when source path refers to a non-localized template file" do
+      let(:source_path) { "bar/baz.html.erb" }
+
+      it { is_expected.to eq Rails.public_path.join("bar/baz.html") }
+    end
+
+    context "when source path refers to a localized template file" do
+      let(:source_path) { "corge.ja.html.erb" }
+
+      it { is_expected.to eq Rails.public_path.join("corge.ja.html") }
+    end
   end
 
   describe "#digest_path" do
@@ -97,26 +106,54 @@ RSpec.describe Gakubuchi::Template do
     end
 
     context "when template exists in specified source path" do
-      let(:source_path) { "bar/baz.html.erb" }
-      let(:expectation) { Rails.public_path.join("assets", "bar/baz-[a-z0-9]*.html").to_s }
+      context "when source path refers to a non-localized template file" do
+        let(:source_path) { "bar/baz.html.erb" }
+        let(:expectation) { Rails.public_path.join("assets", "bar/baz-[a-z0-9]*.html").to_s }
 
-      it { is_expected.to be_an_instance_of Pathname }
-      it { is_expected.to be_fnmatch(expectation) }
+        it { is_expected.to be_an_instance_of Pathname }
+        it { is_expected.to be_fnmatch(expectation) }
+      end
+
+      context "when source path refers to a localized template file" do
+        let(:source_path) { "corge.ja.html.erb" }
+        let(:expectation) { Rails.public_path.join("assets", "corge.ja-[a-z0-9]*.html").to_s }
+
+        it { is_expected.to be_an_instance_of Pathname }
+        it { is_expected.to be_fnmatch(expectation) }
+      end
     end
   end
 
   describe "#extnanme" do
     subject { template.extname }
-    let(:source_path) { "foo.html.erb" }
 
-    it { is_expected.to eq ".html.erb" }
+    context "when source path refers to a non-localized template file" do
+      let(:source_path) { "foo.html.erb" }
+
+      it { is_expected.to eq ".html.erb" }
+    end
+
+    context "when source path refers to a localized template file" do
+      let(:source_path) { "corge.ja.html.erb" }
+
+      it { is_expected.to eq ".html.erb" }
+    end
   end
 
   describe "#logical_path" do
     subject { template.logical_path }
-    let(:source_path) { "bar/baz.html.erb" }
 
-    it { is_expected.to eq Pathname.new("bar/baz.html") }
+    context "when source path refers to a non-localized template file" do
+      let(:source_path) { "bar/baz.html.erb" }
+
+      it { is_expected.to eq Pathname.new("bar/baz.html") }
+    end
+
+    context "when source path refers to a localized template file" do
+      let(:source_path) { "corge.ja.html.erb" }
+
+      it { is_expected.to eq Pathname.new("corge.ja.html") }
+    end
   end
 
   describe "#source_path" do
