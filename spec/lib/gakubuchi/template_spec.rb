@@ -12,7 +12,8 @@ RSpec.describe Gakubuchi::Template do
         described_class.new("foo.html.erb"),
         described_class.new("bar/baz.html.erb"),
         described_class.new("qux.html.haml"),
-        described_class.new("quux.html.slim")
+        described_class.new("quux.html.slim"),
+        described_class.new("corge.ja.html.erb")
       ]
     end
 
