@@ -1,4 +1,7 @@
 # CHANGELOG
+## [1.3.0](https://github.com/yasaichi/gakubuchi/releases/tag/v1.3.0) (March 1, 2017)
+* [Support localized templates](https://github.com/yasaichi/gakubuchi/pull/11) by [@hilohiro](https://github.com/hilohiro)
+
 ## [1.2.3](https://github.com/yasaichi/gakubuchi/releases/tag/v1.2.3) (November 15, 2016)
 * [Fix precompile bug when disabling fallback](https://github.com/yasaichi/gakubuchi/pull/8)
 
