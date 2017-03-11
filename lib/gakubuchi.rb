@@ -6,6 +6,7 @@ require "active_support/configurable"
 require "gakubuchi/configuration"
 require "gakubuchi/error"
 require "gakubuchi/fileutils"
+require "gakubuchi/mime_type"
 require "gakubuchi/task"
 require "gakubuchi/version"
 
