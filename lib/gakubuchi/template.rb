@@ -39,7 +39,8 @@ module Gakubuchi
     end
 
     def digest_path
-      asset = assets.find_asset(logical_path)
+      # NOTE: Call #to_s for Sprockets 4 or later
+      asset = assets.find_asset(logical_path.to_s)
       return if asset.nil?
 
       ::Pathname.new(::File.join(::Rails.public_path, app.config.assets.prefix, asset.digest_path))

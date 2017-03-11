@@ -3,8 +3,17 @@ module Gakubuchi
     config.assets.configure do |env|
       engine_registrar = EngineRegistrar.new(env)
 
-      engine_registrar.register(:haml, "::Tilt::HamlTemplate")
-      engine_registrar.register(:slim, "::Slim::Template")
+      haml = ::Gakubuchi::MimeType.new("text/haml", extensions: %w(.haml .html.haml))
+      engine_registrar.register(haml, "Tilt::HamlTemplate")
+
+      slim = ::Gakubuchi::MimeType.new("text/slim", extensions: %w(.slim .html.slim))
+      engine_registrar.register(slim, "Slim::Template")
+    end
+
+    config.after_initialize do
+      # NOTE: Call #to_s for Sprockets 4 or later
+      templates = ::Gakubuchi::Template.all.map { |template| template.logical_path.to_s }
+      config.assets.precompile += templates
     end
 
     rake_tasks do
