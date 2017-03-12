@@ -1,7 +1,7 @@
 module Gakubuchi
   class Railtie < ::Rails::Railtie
     config.assets.configure do |env|
-      engine_registrar = EngineRegistrar.new(env)
+      engine_registrar = ::Gakubuchi::EngineRegistrar.new(env)
 
       haml = ::Gakubuchi::MimeType.new("text/haml", extensions: %w(.haml .html.haml))
       engine_registrar.register(haml, "Tilt::HamlTemplate")
