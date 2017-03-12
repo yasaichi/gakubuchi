@@ -28,13 +28,16 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[File.expand_path("../../spec/support/**/*.rb", __FILE__)].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 # ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # Include modules in all example groups
+  config.include VersionHelpers
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

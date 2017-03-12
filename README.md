@@ -64,14 +64,14 @@ This will generate `public/404.html`.
 
 ## Template engines
 Gakubuchi supports some template engines: `ERB`, `Haml` and `Slim`.  
-If you want to use `Haml` or `Slim`, you need to put them in your Gemfile:
+When you want to use `Haml` or `Slim`, you need to put them in your Gemfile:
 
 ```ruby
 # Use Haml
-gem 'haml-rails'
+gem 'haml'
 
 # Use Slim
-gem 'slim-rails'
+gem 'slim'
 ```
 
 ## Using assets
@@ -123,7 +123,7 @@ bundle install
 appraisal install
 
 # Run RSpec with a specific combination
-appraisal 'sprockets-rails 3 with sprockets 3' rspec
+appraisal 'sprockets-rails 3 with sprockets 4' rspec
 
 # Run RSpec with all combinations
 appraisal rspec
