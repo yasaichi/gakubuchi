@@ -1,3 +1,8 @@
+require "gakubuchi/engine_registrar"
+require "gakubuchi/mime_type"
+require "gakubuchi/template"
+require "rails/railtie"
+
 module Gakubuchi
   class Railtie < ::Rails::Railtie
     config.assets.configure do |env|

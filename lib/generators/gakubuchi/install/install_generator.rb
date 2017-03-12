@@ -1,3 +1,7 @@
+require "gakubuchi/configuration"
+require "pathname"
+require "rails/generators/base"
+
 module Gakubuchi
   module Generators
     class InstallGenerator < ::Rails::Generators::Base

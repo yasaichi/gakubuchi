@@ -1,3 +1,9 @@
+require "forwardable"
+require "gakubuchi/error"
+require "pathname"
+require "rails"
+require "sprockets/railtie"
+
 module Gakubuchi
   class Template
     extend ::Forwardable

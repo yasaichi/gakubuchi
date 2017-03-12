@@ -1,3 +1,6 @@
+require "active_support/configurable"
+require "forwardable"
+
 module Gakubuchi
   class Configuration
     extend ::Forwardable

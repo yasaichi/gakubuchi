@@ -1,8 +1,3 @@
-require "fileutils"
-require "forwardable"
-require "logger"
-require "active_support/configurable"
-
 require "gakubuchi/configuration"
 require "gakubuchi/error"
 require "gakubuchi/fileutils"
@@ -11,10 +6,9 @@ require "gakubuchi/task"
 require "gakubuchi/version"
 
 if defined?(::Rails::Railtie) && defined?(::Sprockets::Railtie)
-  require "pathname"
   require "gakubuchi/engine_registrar"
-  require "gakubuchi/template"
   require "gakubuchi/railtie"
+  require "gakubuchi/template"
 end
 
 module Gakubuchi
