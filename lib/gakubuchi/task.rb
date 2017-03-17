@@ -1,3 +1,4 @@
+require "gakubuchi/configuration"
 require "gakubuchi/fileutils"
 
 module Gakubuchi

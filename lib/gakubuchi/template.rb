@@ -1,4 +1,5 @@
 require "forwardable"
+require "gakubuchi/configuration"
 require "gakubuchi/error"
 require "pathname"
 require "rails"
