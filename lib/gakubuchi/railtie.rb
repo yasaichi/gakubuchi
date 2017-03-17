@@ -2,6 +2,7 @@ require "gakubuchi/engine_registrar"
 require "gakubuchi/mime_type"
 require "gakubuchi/template"
 require "rails/railtie"
+require "sprockets/railtie"
 
 module Gakubuchi
   class Railtie < ::Rails::Railtie
