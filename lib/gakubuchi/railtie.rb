@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "gakubuchi/engine_registrar"
 require "gakubuchi/mime_type"
 require "gakubuchi/template"

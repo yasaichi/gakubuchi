@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "gakubuchi/task"
 require "gakubuchi/template"
 

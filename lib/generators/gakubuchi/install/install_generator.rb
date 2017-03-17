@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "gakubuchi/configuration"
 require "pathname"
 require "rails/generators/base"
