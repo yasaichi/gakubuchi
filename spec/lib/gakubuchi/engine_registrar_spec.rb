@@ -21,7 +21,11 @@ RSpec.describe Gakubuchi::EngineRegistrar do
         expect(described_method.call).to eq false
       end
 
-      it "shouldn't register the engine for the MIME type" do
+      it "shouldn't register the MIME type with Sprockets::Environment" do
+        expect(&described_method).not_to change { env.mime_types }
+      end
+
+      it "shouldn't register the engine with Sprockets::Environment" do
         expect(&described_method).not_to change(&sprokcets_extensions)
       end
     end
@@ -35,7 +39,11 @@ RSpec.describe Gakubuchi::EngineRegistrar do
         expect(described_method.call).to eq false
       end
 
-      it "shouldn't register the engine for the MIME type" do
+      it "shouldn't register the MIME type with Sprockets::Environment" do
+        expect(&described_method).not_to change { env.mime_types }
+      end
+
+      it "shouldn't register the engine with Sprockets::Environment" do
         expect(&described_method).not_to change(&sprokcets_extensions)
       end
     end
@@ -50,7 +58,12 @@ RSpec.describe Gakubuchi::EngineRegistrar do
         expect(described_method.call).to eq true
       end
 
-      it "should register the engine for the MIME type" do
+      it "should register the MIME type with Sprockets::Environment", skip: major_version_of(Sprockets) < 4 do
+        diff = { mime_type.content_type => { extensions: mime_type.extensions } }
+        expect(&described_method).to change { env.mime_types }.to(hash_including(diff))
+      end
+
+      it "should register the engine with Sprockets::Environment" do
         diff =
           case major_version_of(Sprockets)
           when 2
