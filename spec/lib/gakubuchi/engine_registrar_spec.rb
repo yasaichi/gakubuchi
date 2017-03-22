@@ -15,7 +15,7 @@ RSpec.describe Gakubuchi::EngineRegistrar do
     context "when specified engine is an uninitialized constant" do
       let(:content_type) { "application/csv+ruby" }
       let(:engine) { "Foo" }
-      let(:extensions) { %w(.rcsv .csv.ruby) }
+      let(:extensions) { %w(.rcsv .csv.rcsv) }
 
       it "should return false" do
         expect(described_method.call).to eq false
@@ -43,7 +43,7 @@ RSpec.describe Gakubuchi::EngineRegistrar do
     context "when all parameters are valid" do
       let(:content_type) { "application/csv+ruby" }
       let(:engine) { Tilt::CSVTemplate }
-      let(:extensions) { %w(.rcsv .csv.ruby) }
+      let(:extensions) { %w(.rcsv .csv.rcsv) }
       let(:extensions_with_single_dot) { extensions.select { |ext| ext =~ /\A\.[^\.]+\z/ } }
 
       it "should return true" do
