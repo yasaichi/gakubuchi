@@ -35,7 +35,7 @@ Dir[File.expand_path("../../spec/support/**/*.rb", __FILE__)].each { |f| require
 # ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  # Include modules in all example groups
+  config.extend VersionHelpers
   config.include VersionHelpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

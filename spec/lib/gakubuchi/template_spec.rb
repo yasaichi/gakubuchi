@@ -13,7 +13,7 @@ RSpec.describe Gakubuchi::Template do
         described_class.new("bar/baz.html.erb"),
         described_class.new("qux.html.haml"),
         described_class.new("quux.html.slim"),
-        described_class.new("corge.ja.html.erb")
+        described_class.new("quuz.ja.html.erb")
       ]
     end
 
@@ -86,14 +86,12 @@ RSpec.describe Gakubuchi::Template do
 
     context "when source path refers to a non-localized template file" do
       let(:source_path) { "bar/baz.html.erb" }
-
       it { is_expected.to eq Rails.public_path.join("bar/baz.html") }
     end
 
     context "when source path refers to a localized template file" do
-      let(:source_path) { "corge.ja.html.erb" }
-
-      it { is_expected.to eq Rails.public_path.join("corge.ja.html") }
+      let(:source_path) { "quuz.ja.html.erb" }
+      it { is_expected.to eq Rails.public_path.join("quuz.ja.html") }
     end
   end
 
@@ -115,8 +113,8 @@ RSpec.describe Gakubuchi::Template do
       end
 
       context "when source path refers to a localized template file" do
-        let(:source_path) { "corge.ja.html.erb" }
-        let(:expectation) { Rails.public_path.join("assets", "corge.ja-[a-z0-9]*.html").to_s }
+        let(:source_path) { "quuz.ja.html.erb" }
+        let(:expectation) { Rails.public_path.join("assets", "quuz.ja-[a-z0-9]*.html").to_s }
 
         it { is_expected.to be_an_instance_of Pathname }
         it { is_expected.to be_fnmatch(expectation) }
@@ -129,13 +127,11 @@ RSpec.describe Gakubuchi::Template do
 
     context "when source path refers to a non-localized template file" do
       let(:source_path) { "foo.html.erb" }
-
       it { is_expected.to eq ".html.erb" }
     end
 
     context "when source path refers to a localized template file" do
-      let(:source_path) { "corge.ja.html.erb" }
-
+      let(:source_path) { "quuz.ja.html.erb" }
       it { is_expected.to eq ".html.erb" }
     end
   end
@@ -145,14 +141,12 @@ RSpec.describe Gakubuchi::Template do
 
     context "when source path refers to a non-localized template file" do
       let(:source_path) { "bar/baz.html.erb" }
-
       it { is_expected.to eq Pathname.new("bar/baz.html") }
     end
 
     context "when source path refers to a localized template file" do
-      let(:source_path) { "corge.ja.html.erb" }
-
-      it { is_expected.to eq Pathname.new("corge.ja.html") }
+      let(:source_path) { "quuz.ja.html.erb" }
+      it { is_expected.to eq Pathname.new("quuz.ja.html") }
     end
   end
 

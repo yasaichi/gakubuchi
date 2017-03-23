@@ -15,13 +15,17 @@ RSpec.describe Gakubuchi::EngineRegistrar do
     context "when specified engine is an uninitialized constant" do
       let(:content_type) { "application/csv+ruby" }
       let(:engine) { "Foo" }
-      let(:extensions) { %w(.rcsv .csv.ruby) }
+      let(:extensions) { %w(.rcsv .csv.rcsv) }
 
       it "should return false" do
         expect(described_method.call).to eq false
       end
 
-      it "shouldn't register the engine for the MIME type" do
+      it "shouldn't register the MIME type with Sprockets::Environment" do
+        expect(&described_method).not_to change { env.mime_types }
+      end
+
+      it "shouldn't register the engine with Sprockets::Environment" do
         expect(&described_method).not_to change(&sprokcets_extensions)
       end
     end
@@ -35,7 +39,11 @@ RSpec.describe Gakubuchi::EngineRegistrar do
         expect(described_method.call).to eq false
       end
 
-      it "shouldn't register the engine for the MIME type" do
+      it "shouldn't register the MIME type with Sprockets::Environment" do
+        expect(&described_method).not_to change { env.mime_types }
+      end
+
+      it "shouldn't register the engine with Sprockets::Environment" do
         expect(&described_method).not_to change(&sprokcets_extensions)
       end
     end
@@ -43,14 +51,19 @@ RSpec.describe Gakubuchi::EngineRegistrar do
     context "when all parameters are valid" do
       let(:content_type) { "application/csv+ruby" }
       let(:engine) { Tilt::CSVTemplate }
-      let(:extensions) { %w(.rcsv .csv.ruby) }
+      let(:extensions) { %w(.rcsv .csv.rcsv) }
       let(:extensions_with_single_dot) { extensions.select { |ext| ext =~ /\A\.[^\.]+\z/ } }
 
       it "should return true" do
         expect(described_method.call).to eq true
       end
 
-      it "should register the engine for the MIME type" do
+      it "should register the MIME type with Sprockets::Environment", skip: major_version_of(Sprockets) < 4 do
+        diff = { mime_type.content_type => { extensions: mime_type.extensions } }
+        expect(&described_method).to change { env.mime_types }.to(hash_including(diff))
+      end
+
+      it "should register the engine with Sprockets::Environment" do
         diff =
           case major_version_of(Sprockets)
           when 2

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+require "fileutils"
+require "logger"
+
 module Gakubuchi
   module FileUtils
     extend ::FileUtils

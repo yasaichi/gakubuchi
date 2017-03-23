@@ -1,3 +1,11 @@
+# frozen_string_literal: true
+require "forwardable"
+require "gakubuchi/configuration"
+require "gakubuchi/error"
+require "pathname"
+require "rails"
+require "sprockets/railtie"
+
 module Gakubuchi
   class Template
     extend ::Forwardable
@@ -28,9 +36,9 @@ module Gakubuchi
 
       case
       when !@extname.include?("html")
-        fail Error::InvalidTemplate, "source path must refer to a template file"
+        raise ::Gakubuchi::Error::InvalidTemplate, "source path must refer to a template file"
       when !@source_path.fnmatch?(root.join("*").to_s)
-        fail Error::InvalidTemplate, "template must exist in #{root}"
+        raise ::Gakubuchi::Error::InvalidTemplate, "template must exist in #{root}"
       end
     end
 

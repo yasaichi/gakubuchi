@@ -14,7 +14,7 @@ describe "rake assets:precompile" do
         Rails.public_path.join("bar/baz.html"),
         Rails.public_path.join("qux.html"),
         Rails.public_path.join("quux.html"),
-        Rails.public_path.join("corge.ja.html")
+        Rails.public_path.join("quuz.ja.html")
       ]
     end
 

@@ -17,13 +17,13 @@ gem 'gakubuchi'
 Run the installation generator with:
 
 ```shell
-rails generate gakubuchi:install
+rails g gakubuchi:install
 ```
 
 Or specify the name of directory for static pages:
 
 ```shell
-rails generate gakubuchi:install -d html
+rails g gakubuchi:install -d html
 ```
 
 They will install the initializer into `config/initializers/gakubuchi.rb` and create the directory in `app/assets`.  
@@ -57,7 +57,7 @@ http://localhost:3000/assets/404.html
 Compile the templeate with:
 
 ```shell
-rake assets:precompile
+rails assets:precompile
 ```
 
 This will generate `public/404.html`.
@@ -111,9 +111,9 @@ You should follow the steps below.
 
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo/)
 2. Create a feature branch: `git checkout -b add-new-feature`
-3. Commit your changes: `git commit -am 'add new feature'`
+3. Commit your changes: `git commit -am 'Add new feature'`
 4. Push the branch: `git push origin add-new-feature`
-4. [Send us a pull request](https://help.github.com/articles/using-pull-requests/)
+4. [Send us a pull request](https://help.github.com/articles/about-pull-requests/)
 
 We use [Appraisal](https://github.com/thoughtbot/appraisal) to test with different combinations of
 [sprockets](https://github.com/rails/sprockets) and [sprockets-rails](https://github.com/rails/sprockets-rails).
