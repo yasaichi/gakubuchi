@@ -1,4 +1,8 @@
 # CHANGELOG
+## [1.4.0](https://github.com/yasaichi/gakubuchi/releases/tag/v1.4.0) (April 4, 2017)
+* [Support Sprockets 4](https://github.com/yasaichi/gakubuchi/pull/13)
+* [Enable frozen string literals for Ruby 3](https://github.com/yasaichi/gakubuchi/pull/14)
+
 ## [1.3.0](https://github.com/yasaichi/gakubuchi/releases/tag/v1.3.0) (March 1, 2017)
 * [Support localized templates](https://github.com/yasaichi/gakubuchi/pull/11) by [@hilohiro](https://github.com/hilohiro)
 
