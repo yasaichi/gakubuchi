@@ -34,7 +34,6 @@ describe "rake assets:precompile" do
   end
 
   after do
-    Rake::Task["assets:clobber"].execute
     FileUtils.rm_r(Dir.glob(Rails.public_path.join("*")), secure: true)
   end
 end
