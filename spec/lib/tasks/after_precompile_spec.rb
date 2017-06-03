@@ -1,10 +1,6 @@
 require "rails_helper"
 
 describe "rake assets:precompile" do
-  before(:context) do
-    Rails.application.load_tasks
-  end
-
   describe "precompiled templates" do
     subject { Pathname.glob(Rails.public_path.join("**/*.html")) }
 
