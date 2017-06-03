@@ -7,14 +7,14 @@ module Gakubuchi
     extend ::FileUtils
 
     class << self
-      def copy_p(src, dest)
+      def copy_p(src, dest, options = {})
         mkdir_p(::File.dirname(dest))
-        copy(src, dest)
+        copy(src, dest, options)
         logging("Copied #{src} to #{dest}")
       end
 
-      def remove(list)
-        super(list)
+      def remove(list, options = {})
+        super(list, options)
         logging("Removed #{Array(list).join(' ')}")
       end
 
