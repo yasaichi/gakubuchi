@@ -50,6 +50,6 @@ RSpec.describe Gakubuchi::Generators::InstallGenerator, type: :generator do
   end
 
   after(:context) do
-    FileUtils.rm_rf(destination_root)
+    FileUtils.rm_rf(destination_root, secure: true)
   end
 end
