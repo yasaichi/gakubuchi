@@ -18,6 +18,11 @@ module Gakubuchi
         logging("Removed #{Array(list).join(' ')}")
       end
 
+      def rm_rf(list, options = {})
+        super(list, options)
+        logging("Removed #{Array(list).join(' ')}")
+      end
+
       private
 
       def logging(message)
