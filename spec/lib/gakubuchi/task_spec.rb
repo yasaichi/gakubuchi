@@ -1,74 +1,65 @@
 require "rails_helper"
 
 RSpec.describe Gakubuchi::Task do
-  let(:task) { described_class.new(templates) }
-
   describe "#execute!" do
-    let(:templates) { [template] }
+    let(:destination_path) { template.destination_path }
+    let(:task) { described_class.new(template) }
     let(:template) { Gakubuchi::Template.new(source_path) }
 
-    describe "Gakubuchi::FileUtils" do
-      subject { Gakubuchi::FileUtils }
+    context "when template does not exist in specified source path" do
+      let(:source_path) { "not_exist.html.erb" }
 
       before do
-        allow(subject).to receive(:copy_p)
-        allow(subject).to receive(:remove)
+        task.execute!
       end
 
-      context "when template does not exist in specified source path" do
-        let(:source_path) { "not_exist.html.erb" }
+      it "has no side effects" do
+        expect(File.exist?(destination_path)).to eq false
+      end
+    end
 
-        before do
-          task.execute!
-        end
+    context "when template exists in specified source path" do
+      let(:source_path) { "bar/baz.html.erb" }
+      let(:digest_path) { template.digest_path }
 
-        describe ".copy_p" do
-          it { is_expected.not_to have_received(:copy_p) }
-        end
+      before do
+        Gakubuchi.configuration.leave_digest_named_templates = config_value
 
-        describe ".remove" do
-          it { is_expected.not_to have_received(:remove) }
+        FileUtils.mkdir_p(digest_path.dirname)
+        File.write(digest_path, "")
+
+        task.execute!
+      end
+
+      context "when config.leave_digest_named_templates is true" do
+        let(:config_value) { true }
+
+        # TODO: Test the log messages
+        it "generates the non-digest-named copies" do
+          expect(File.exist?(destination_path)).to eq true
+          expect(File.exist?(digest_path)).to eq true
         end
       end
 
-      context "when template exists in specified source path" do
-        let(:source_path) { "foo.html.erb" }
+      context "when config.leave_digest_named_templates is false" do
+        let(:config_value) { false }
 
-        describe ".copy_p" do
-          let(:expectation) { [template.digest_path, template.destination_path] }
-
-          before do
-            task.execute!
-          end
-
-          it { is_expected.to have_received(:copy_p).with(*expectation) }
+        it "generates the non-digest-named copies, and then removes the sources" do
+          expect(File.exist?(destination_path)).to eq true
+          expect(File.exist?(digest_path)).to eq false
         end
+      end
 
-        describe ".remove" do
-          before do
-            allow(task).to receive(:leave_digest_named_templates?).and_return(return_value)
-            task.execute!
-          end
-
-          context "when #leave_digest_named_templates? returns true" do
-            let(:return_value) { true }
-            it { is_expected.not_to have_received(:remove) }
-          end
-
-          context "when #leave_digest_named_templates? returns false" do
-            let(:return_value) { false }
-            let(:expectation) { a_collection_including(template.digest_path) }
-
-            it { is_expected.to have_received(:remove).with(expectation) }
-          end
-        end
+      after do
+        FileUtils.rm_r(Dir.glob(Rails.public_path.join("*")), secure: true)
+        Gakubuchi.reset
       end
     end
   end
 
   describe "#leave_digest_named_templates?" do
     subject { task.leave_digest_named_templates? }
-    let(:templates) { [] }
+    let(:task) { described_class.new([]) }
 
     before do
       Gakubuchi.configuration.leave_digest_named_templates = config_value
@@ -86,6 +77,20 @@ RSpec.describe Gakubuchi::Task do
 
     after do
       Gakubuchi.reset
+    end
+  end
+
+  describe "#templates" do
+    subject { described_class.new(argument).templates }
+
+    context "when one template is passed into .new" do
+      let(:argument) { Gakubuchi::Template.new("foo.html.erb") }
+      it { is_expected.to eq [argument] }
+    end
+
+    context "when an array of templates is passed into .new" do
+      let(:argument) { [Gakubuchi::Template.new("foo.html.erb")] }
+      it { is_expected.to eq argument }
     end
   end
 end
