@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Gakubuchi::Task do
   describe "#execute!" do
+    subject { -> { task.execute! } }
+
     let(:destination_path) { template.destination_path }
     let(:task) { described_class.new(template) }
     let(:template) { Gakubuchi::Template.new(source_path) }
@@ -9,11 +11,8 @@ RSpec.describe Gakubuchi::Task do
     context "when template does not exist in specified source path" do
       let(:source_path) { "not_exist.html.erb" }
 
-      before do
-        task.execute!
-      end
-
       it "has no side effects" do
+        expect(&subject).not_to output.to_stdout
         expect(File.exist?(destination_path)).to eq false
       end
     end
@@ -27,26 +26,39 @@ RSpec.describe Gakubuchi::Task do
 
         FileUtils.mkdir_p(digest_path.dirname)
         File.write(digest_path, "")
-
-        task.execute!
+        File.write("#{digest_path}.gz", "")
       end
 
       context "when config.leave_digest_named_templates is true" do
         let(:config_value) { true }
+        let(:expected_log_messeage) do
+          /\A.*Copied #{digest_path} to #{destination_path}\Z/
+        end
 
-        # TODO: Test the log messages
         it "generates the non-digest-named copies" do
+          expect(&subject).to output(expected_log_messeage).to_stdout
+
           expect(File.exist?(destination_path)).to eq true
           expect(File.exist?(digest_path)).to eq true
+          expect(File.exist?("#{digest_path}.gz")).to eq true
         end
       end
 
       context "when config.leave_digest_named_templates is false" do
         let(:config_value) { false }
+        let(:expected_log_messeage) do
+          /\A
+            .*Copied\ #{digest_path}\ to\ #{destination_path}\n
+            .*Removed\ #{digest_path}\ #{digest_path}.gz
+          \Z/mx
+        end
 
         it "generates the non-digest-named copies, and then removes the sources" do
+          expect(&subject).to output(expected_log_messeage).to_stdout
+
           expect(File.exist?(destination_path)).to eq true
           expect(File.exist?(digest_path)).to eq false
+          expect(File.exist?("#{digest_path}.gz")).to eq false
         end
       end
 

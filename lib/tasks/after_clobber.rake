@@ -3,7 +3,7 @@ require "fileutils"
 require "gakubuchi/template"
 
 Rake::Task["assets:clobber"].enhance do
-  logger = Logger.new(STDOUT)
+  logger = Logger.new($stdout)
   destination_paths = Gakubuchi::Template.all.map(&:destination_path)
 
   # TODO: Extract the followings as an instance method
