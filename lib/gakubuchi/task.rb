@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require "fileutils"
 require "gakubuchi/configuration"
-require "gakubuchi/fileutils"
 require "logger"
 
 module Gakubuchi
