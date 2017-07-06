@@ -24,7 +24,6 @@ module Gakubuchi
     end
 
     rake_tasks do
-      ::Dir.glob(::File.expand_path("../../tasks/*.rake", __FILE__)).each { |path| load path }
     end
   end
 end
