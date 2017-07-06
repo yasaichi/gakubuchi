@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 require "fileutils"
-require "gakubuchi/configuration"
 require "logger"
 
 module Gakubuchi
   class Task
-    attr_reader :templates
+    attr_reader :configuration
 
-    def initialize(templates)
-      @templates = Array(templates)
+    def initialize(configuration)
+      @configuration = configuration
     end
 
-    def execute!
-      templates.each do |template|
+    def publish(templates)
+      Array(templates).each do |template|
         src = template.digest_path
         next if src.nil?
         dest = template.destination_path
@@ -20,7 +19,7 @@ module Gakubuchi
         copy_p(src, dest)
         logger.info("Copied #{src} to #{dest}")
 
-        unless leave_digest_named_templates?
+        unless configuration.leave_digest_named_templates
           files = [src, *::Dir.glob("#{src}.gz")]
 
           ::FileUtils.remove(files)
@@ -29,8 +28,17 @@ module Gakubuchi
       end
     end
 
-    def leave_digest_named_templates?
-      !!::Gakubuchi.configuration.leave_digest_named_templates
+    def remove(templates)
+      Array(templates).each do |template|
+        next unless template.destination_path.exist?
+
+        template.destination_path.ascend do |path|
+          break if path == ::Rails.public_path || path.directory? && path.entries.size != 2
+
+          ::FileUtils.remove_entry_secure(path)
+          logger.info("Removed #{path}")
+        end
+      end
     end
 
     private
