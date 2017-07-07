@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "fileutils"
 require "logger"
+require "rails"
 
 module Gakubuchi
   class Task
