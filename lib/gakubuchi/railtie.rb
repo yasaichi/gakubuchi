@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+require "gakubuchi/configuration"
 require "gakubuchi/engine_registrar"
 require "gakubuchi/mime_type"
+require "gakubuchi/rake_task"
 require "gakubuchi/template"
 require "rails/railtie"
 require "sprockets/railtie"
@@ -24,7 +26,10 @@ module Gakubuchi
     end
 
     rake_tasks do
-      ::Dir.glob(::File.expand_path("../../tasks/*.rake", __FILE__)).each { |path| load path }
+      ::Gakubuchi::RakeTask.enhance(::Rake.application) do |task|
+        task.configuration = ::Gakubuchi.configuration
+        task.templates = ::Gakubuchi::Template.all
+      end
     end
   end
 end

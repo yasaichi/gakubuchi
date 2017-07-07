@@ -17,6 +17,8 @@ RSpec.describe Gakubuchi do
     end
 
     before do
+      described_class.reset
+
       described_class.configure do |config|
         config.leave_digest_named_templates = expected_attrs[:leave_digest_named_templates]
         config.template_directory = expected_attrs[:template_directory]
