@@ -25,6 +25,6 @@ branches:
     - master
 before_install:
   - gem update --system 2.7.9 --no-doc
-  - "gem install bundler"
+  - gem install bundler -v '~> 1.0'
 after_script:
   - '[ ${TRAVIS_EVENT_TYPE} != "pull_request" ] && [ ${TRAVIS_BRANCH} = "master" ] && bundle exec codeclimate-test-reporter'
