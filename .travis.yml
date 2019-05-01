@@ -40,3 +40,7 @@ before_install:
   - gem install bundler -v '~> 1.0'
 after_script:
   - '[ ${TRAVIS_EVENT_TYPE} != "pull_request" ] && [ ${TRAVIS_BRANCH} = "master" ] && bundle exec codeclimate-test-reporter'
+notifications:
+  email: false
+  slack:
+    secure: "bLwMT0+xiUZ6QgpgGGm9ebDSjhZBk9wEY2mkISzUpt02uSgSB3xIgILB/JgXS4D9h4PdGNWZaBf6o+lfNIjcc/Q3xZcotJN9MIGMnHVrLKh4O4Q34QNByqFDJw9p1ydNPDT786GkmXTN8VLg2QBclD0xpwRrhf2Honb0n9GR2tGLW7+Ca6rWX6trSg2eMKu/Fmc8lTHZErsDqYGA8JaH6kwCpNHSLkL1C9ZabPPauWwOPJrFbNwmuaxrKmS2dZ1flYXOESotyc147suaSIBIXUauZmUk0LW+ei7bGy0o5iIr6fKd/6E5BBFJPINziRnBL3Ejodkpkb/86H3S+13F5iHIZ19bZSaqbjAQu5jBxEmq/DViOzez71Jaxoe6ofmFcj8z0Lbujg6gw5QAVfhyccK5nrjWaBRnWhxQaJZGnQUqkyOtN2VmVfigicdfijG1m84+OaRB8AThoYaW4TAGH1eB+qVeLOLXjkq5TPI5stNTtzOAxqPfg/+n0aApd4M3XbMgFeNbKIfhZ30KrpH6N63XPc1HdEEz/OXubvCQi5i6ul2q8sBpjRUAnQGw5W4Z53I52PHjETPX+A9FKv31Pus+KCwDMhcgC2hulkx+MQ+Qf7gFVvl57fbCbyNsuaUpALvEbjcgx00R0oGS9l6fuK1IZcZYxNGHnGgBv5J28oc="
