@@ -3,8 +3,11 @@ sudo: false
 rvm:
   - 2.0
   - 2.1.9
-  - 2.2.6
-  - 2.3.3
+  - 2.2.10
+  - 2.3.8
+  - 2.4.6
+  - 2.5.5
+  - 2.6.3
 gemfile:
   - gemfiles/sprockets_rails_2_with_sprockets_2.gemfile
   - gemfiles/sprockets_rails_2_with_sprockets_3.gemfile
@@ -12,6 +15,14 @@ gemfile:
   - gemfiles/sprockets_rails_3_with_sprockets_4.gemfile
 matrix:
   exclude:
+    - rvm: 2.5.5
+      gemfile: gemfiles/sprockets_rails_2_with_sprockets_2.gemfile
+    - rvm: 2.6.3
+      gemfile: gemfiles/sprockets_rails_2_with_sprockets_2.gemfile
+    - rvm: 2.5.5
+      gemfile: gemfiles/sprockets_rails_2_with_sprockets_3.gemfile
+    - rvm: 2.6.3
+      gemfile: gemfiles/sprockets_rails_2_with_sprockets_3.gemfile
     - rvm: 2.0
       gemfile: gemfiles/sprockets_rails_3_with_sprockets_3.gemfile
     - rvm: 2.1.9
@@ -25,6 +36,7 @@ branches:
     - master
 before_install:
   - gem update --system 2.7.9 --no-doc
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '~> 1.0'
 after_script:
   - '[ ${TRAVIS_EVENT_TYPE} != "pull_request" ] && [ ${TRAVIS_BRANCH} = "master" ] && bundle exec codeclimate-test-reporter'
