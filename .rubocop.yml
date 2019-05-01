@@ -1,9 +1,7 @@
 inherit_from:
-  - https://raw.githubusercontent.com/rails/rails/master/.rubocop.yml
+  - https://raw.githubusercontent.com/rails/rails/5-2-stable/.rubocop.yml
 
 AllCops:
-  Rails:
-    Enabled: true
   Exclude:
     - gakubuchi.gemspec
     - spec/dummy/**/*
@@ -16,5 +14,6 @@ LineLength:
 Style/Documentation:
   Enabled: false
 
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
+  Enabled: true
   EnforcedStyle: normal
