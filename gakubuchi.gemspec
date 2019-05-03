@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "reek"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "rspec-rails", ">= 3.0.1"
-  s.add_development_dependency "rubocop"
+  s.add_development_dependency "rubocop", "< 0.51.0"
   s.add_development_dependency "simplecov"
   # TODO: Deal with the bugs on the latest version of slim-rails
   s.add_development_dependency "slim-rails", "< 3.1.1"
